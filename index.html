@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexarStore — Tecnologia Premium</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --preto: #000000;
+            --verde: #00C47A;
+            --branco: #ffffff;
+            --cinza-escuro: #0d0d0d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: var(--preto);
+            color: var(--branco);
+        }
+
+        header {
+            background: var(--cinza-escuro);
+            padding: 25px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--verde);
+        }
+
+        header h1 {
+            font-size: 32px;
+            font-weight: 900;
+            color: var(--verde);
+            letter-spacing: 1px;
+        }
+
+        nav a {
+            margin-left: 24px;
+            color: var(--branco);
+            text-decoration: none;
+            font-weight: 700;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--verde);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 80px 20px;
+            background: linear-gradient(180deg, #000, #0f0f0f);
+        }
+
+        .hero h2 {
+            font-size: 38px;
+            font-weight: 800;
+        }
+
+        .hero p {
+            margin-top: 10px;
+            font-size: 18px;
+            opacity: 0.8;
+        }
+
+        .btn {
+            background: var(--verde);
+            padding: 15px 28px;
+            display: inline-block;
+            border-radius: 12px;
+            color: #000;
+            font-weight: 900;
+            margin-top: 22px;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .section-title {
+            padding: 50px 20px 10px;
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--verde);
+        }
+
+        .grid {
+            padding: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: #111;
+            padding: 18px;
+            border-radius: 14px;
+            transition: 0.3s;
+            border: 1px solid #222;
+        }
+
+        .card:hover {
+            transform: scale(1.03);
+            border-color: var(--verde);
+        }
+
+        .card img {
+            width: 100%;
+            border-radius: 12px;
+        }
+
+        .card h3 {
+            margin: 15px 0 5px;
+            font-weight: 800;
+        }
+
+        .price {
+            color: var(--verde);
+            font-weight: 900;
+            font-size: 20px;
+        }
+
+        footer {
+            background: var(--cinza-escuro);
+            padding: 40px;
+            text-align: center;
+            margin-top: 40px;
+            border-top: 2px solid var(--verde);
+        }
+
+        footer p {
+            margin-top: 8px;
+            opacity: 0.8;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>NexarStore</h1>
+    <nav>
+        <a href="#produtos">Produtos</a>
+        <a href="#categorias">Categorias</a>
+        <a href="#catalogo">Catálogo</a>
+        <a href="#contato">Contato</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <h2>Sua Loja Premium de Tecnologia</h2>
+    <p>Aparelhos originais, preços acessíveis e confiança total.</p>
+    <a href="#produtos" class="btn">Ver Produtos</a>
+</section>
+
+<h2 class="section-title" id="produtos">Produtos em Destaque</h2>
+<div class="grid">
+    <div class="card">
+        <img src="produto1.jpg" alt="iPhone 16 Pro Max">
+        <h3>iPhone 16 Pro Max</h3>
+        <p class="price">R$ 10.000</p>
+    </div>
+    <div class="card">
+        <img src="produto2.jpg" alt="Samsung S25">
+        <h3>Samsung S25</h3>
+        <p class="price">R$ 8.000</p>
+    </div>
+    <div class="card">
+        <img src="produto3.jpg" alt="ASUS Vivobook">
+        <h3>ASUS Vivobook</h3>
+        <p class="price">R$ 4.000</p>
+    </div>
+</div>
+
+<footer id="contato">
+    <h3>Contato</h3>
+    <p><strong>Whatsapp:</strong> +55 11 97042-0650</p>
+    <p><strong>Email:</strong> nexarstore@gmail.com</p>
+</footer>
+
+</body>
+</html>
