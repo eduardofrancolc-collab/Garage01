@@ -13,13 +13,15 @@
             --verde: #00C47A;
             --branco: #ffffff;
             --cinza-escuro: #0d0d0d;
+            --fundo-carrinho: #1a1a1a;
+            --vermelho-erro: #ff4d4d;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', sans-serif; /* Padrão para corpo */
+            font-family: 'Inter', sans-serif;
         }
 
         body {
@@ -34,6 +36,9 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 2px solid var(--verde);
+            position: sticky; 
+            top: 0;
+            z-index: 1000;
         }
 
         header h1 {
@@ -41,7 +46,6 @@
             font-weight: 900;
             color: var(--verde);
             letter-spacing: 1px;
-            /* MONTSERRAT para o Logo */
             font-family: 'Montserrat', sans-serif; 
         }
 
@@ -68,26 +72,40 @@
             cursor: pointer;
             color: var(--branco);
             transition: 0.3s;
+            position: relative;
         }
 
         .cart-icon:hover {
             color: var(--verde);
         }
+        
+        /* Contador de Itens no Carrinho */
+        #cart-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: var(--vermelho-erro);
+            color: var(--branco);
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+            font-weight: 700;
+            line-height: 1;
+            display: none; 
+        }
 
-        /* HERO COM IMAGEM DO GITHUB RAW */
+        /* HERO section */
         .hero {
             background-image: url("https://raw.githubusercontent.com/eduardofrancolc-collab/Nexar-Store/main/loja%20imag.png");
             background-size: cover;
             background-position: center;
             text-align: center;
-            /* AJUSTE: Padding reduzido para compactar o banner */
             padding: 50px 20px; 
         }
 
         .hero h2 {
             font-size: 38px;
             font-weight: 800;
-            /* MONTSERRAT para o Título do Hero */
             font-family: 'Montserrat', sans-serif; 
         }
 
@@ -107,15 +125,26 @@
             margin-top: 22px;
             text-decoration: none;
             font-size: 18px;
+            cursor: pointer;
         }
 
+        /* Títulos de Seção e Categoria */
         .section-title {
             padding: 50px 20px 10px;
             font-size: 32px;
             font-weight: 800;
             color: var(--verde);
-            /* MONTSERRAT para o Título de Seção */
             font-family: 'Montserrat', sans-serif;
+        }
+        
+        /* Títulos de Sub-Categoria */
+        .category-title {
+            padding: 10px 30px;
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--branco);
+            border-left: 5px solid var(--verde);
+            margin-top: 30px;
         }
 
         .grid {
@@ -138,9 +167,20 @@
             border-color: var(--verde);
         }
 
+        /* IMAGENS FICTÍCIAS */
         .card img {
             width: 100%;
+            height: 200px;
+            object-fit: cover; /* Garante que a imagem se ajuste ao espaço */
             border-radius: 12px;
+            /* Adicionado estilo para imagens fictícias */
+            background-color: #333; 
+            display: block;
+            line-height: 200px;
+            text-align: center;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 600;
         }
 
         .card h3 {
@@ -152,9 +192,180 @@
             color: var(--verde);
             font-weight: 900;
             font-size: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .add-to-cart-btn {
+            background: var(--verde);
+            color: #000;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: 700;
+            width: 100%;
+            cursor: pointer;
+            transition: 0.2s;
         }
 
-        /* Novo estilo para o Rodapé Estendido e PIX */
+        .add-to-cart-btn:hover {
+            background: #00e08c;
+        }
+
+        /* --- Estilização do Carrinho Dinâmico (Sidebar) --- */
+        .cart-sidebar {
+            height: 100%;
+            width: 0; 
+            position: fixed;
+            z-index: 2000;
+            top: 0;
+            right: 0;
+            background-color: var(--fundo-carrinho);
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+            border-left: 3px solid var(--verde);
+            box-shadow: -5px 0 15px rgba(0,0,0,0.5);
+            max-width: 400px;
+        }
+
+        .cart-sidebar.open {
+            width: 100%; 
+            max-width: 400px;
+        }
+
+        .cart-header {
+            padding: 20px 25px;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            background: #111;
+            border-bottom: 1px solid #222;
+        }
+
+        .cart-header h3 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--verde);
+            display: inline-block;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+            text-decoration: none;
+            color: var(--branco);
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .close-btn:hover {
+            color: var(--vermelho-erro);
+        }
+
+        .cart-items {
+            padding: 20px 25px;
+            max-height: calc(100vh - 350px); 
+            overflow-y: auto;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #222;
+        }
+
+        .cart-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-right: 15px;
+            /* Estilo para imagem de item no carrinho */
+            background-color: #555;
+            line-height: 60px;
+            font-size: 10px;
+            color: #ccc;
+        }
+
+        .item-details {
+            flex-grow: 1;
+        }
+
+        .item-details p {
+            font-size: 14px;
+            margin: 3px 0;
+        }
+        
+        #empty-cart-message {
+            text-align: center;
+            padding: 50px 0;
+            opacity: 0.6;
+        }
+
+        .cart-summary {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: #0d0d0d;
+            padding: 20px 25px;
+            border-top: 1px solid var(--verde);
+        }
+
+        .cart-summary p {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .cart-summary .total {
+            font-size: 20px;
+            color: var(--verde);
+            margin-top: 10px;
+        }
+        
+        .checkout-btn {
+            width: 100%;
+            background: var(--verde);
+            color: #000;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 900;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        /* Pagamentos no Carrinho (Dinâmico) */
+        .payment-options-container {
+            margin-top: 20px;
+            padding-top: 10px;
+            border-top: 1px dashed #444;
+        }
+
+        .payment-options-container h4 {
+            color: var(--verde);
+            margin-bottom: 10px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px;
+        }
+
+        .pix-code-cart {
+            background: #222;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 10px;
+            word-break: break-all;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+        
+        /* Rodapé Estendido */
         .footer-extended {
             background: var(--preto);
             color: var(--branco);
@@ -176,92 +387,186 @@
             font-weight: 900;
             font-size: 22px;
         }
-
-        .pix-area {
-            background: #111;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 10px;
-            border: 1px solid var(--verde);
-        }
-
-        .pix-code {
-            font-size: 12px;
-            word-break: break-all;
-            margin-top: 5px;
-            opacity: 0.7;
-        }
-
-        .pix-copy-btn {
-            background: var(--verde);
-            color: #000;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-weight: 700;
-            cursor: pointer;
-            margin-top: 5px;
-            display: block;
-            width: 100%;
-            transition: 0.2s;
-        }
-
-        .pix-copy-btn:hover {
-            background: #00e08c;
-        }
-
+        
         footer {
             background: var(--cinza-escuro);
             padding: 20px;
             text-align: center;
             border-top: 2px solid var(--verde);
         }
-
-        footer p {
-            margin-top: 8px;
-            opacity: 0.8;
-            font-size: 14px;
+        
+        @media (max-width: 600px) {
+            .cart-sidebar.open {
+                width: 100%;
+                max-width: 100%;
+            }
         }
 
     </style>
 </head>
 
 <body>
+    <div id="cartSidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <a href="javascript:void(0)" class="close-btn" onclick="closeNav()">&times;</a>
+            <h3>Seu Carrinho</h3>
+        </div>
+        
+        <div class="cart-items" id="cart-items-container">
+            <p id="empty-cart-message">Seu carrinho está vazio. Adicione um produto!</p>
+        </div>
+
+        <div class="cart-summary">
+            <p>Subtotal: <span id="cart-subtotal">R$ 0,00</span></p>
+            <p class="total">Total: <span id="cart-total">R$ 0,00</span></p>
+
+            <div class="payment-options-container">
+                <h4>Pagamento Rápido</h4>
+                <p><strong>PIX (10% OFF):</strong> <span id="pix-discount">R$ 0,00</span></p>
+                <div class="pix-code-cart">
+                    <p>Copia e Cola PIX (Automático):</p>
+                    <p>00020126720014br.gov.bcb.pix0136959ef5f1-680c-4ca9-8260-724aaa1de1fd0210NexarStore5204000053039865802BR5925EDUARDO FRANCO LIMA DE CA6007ITAPEVI62200516NexarStoreAccont630466F6</p>
+                </div>
+                <ul style="list-style: none; margin-top: 10px; font-size: 14px;">
+                    <li><i class="fa-solid fa-credit-card"></i> Cartão em até 12x</li>
+                    <li><i class="fa-solid fa-barcode"></i> Boleto Bancário</li>
+                </ul>
+            </div>
+
+            <button class="checkout-btn" onclick="alert('Funcionalidade de Checkout Ativada!')">
+                Prosseguir para o Pagamento
+            </button>
+        </div>
+    </div>
     <header>
         <h1>NexarStore</h1>
         <nav>
-            <a href="#produtos">Produtos</a>
-            <a href="#categorias">Categorias</a>
-            <a href="#catalogo">Catálogo</a>
+            <a href="#produtos">Destaques</a>
+            <a href="#smartphones">Smartphones</a>
+            <a href="#notebooks">Notebooks</a>
             <a href="#contato">Contato</a>
-            <i class="fa-solid fa-cart-shopping cart-icon" title="Carrinho de Compras"></i>
+            <i class="fa-solid fa-cart-shopping cart-icon" title="Carrinho de Compras" onclick="openNav()">
+                <span id="cart-count">0</span>
+            </i>
         </nav>
     </header>
 
     <section class="hero">
         <h2>Sua Loja Premium de Tecnologia</h2>
         <p>Aparelhos originais, preços acessíveis e confiança total.</p>
-        <a href="#produtos" class="btn">Ver Produtos</a>
+        <a href="#produtos" class="btn">Ver Ofertas</a>
     </section>
-
-    <h2 class="section-title" id="produtos">Produtos em Destaque</h2>
+    
+    <h2 class="section-title" id="produtos">🔥 Produtos em Destaque</h2>
     <div class="grid">
-        <div class="card">
-            <img src="produto1.jpg" alt="iPhone 16 Pro Max">
+        <div class="card" data-id="1" data-name="iPhone 16 Pro Max" data-price="10000.00" data-image="produto1.jpg">
+            <img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22100%25%22%20height%3D%22100%25%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23222%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2216%22%20fill%3D%22%23AAA%22%3EiPhone%2016%20Pro%20Max%3C%2Ftext%3E%3C%2Fsvg%3E" alt="iPhone 16 Pro Max">
             <h3>iPhone 16 Pro Max</h3>
-            <p class="price">R$ 10.000</p>
+            <p class="price">R$ 10.000,00</p>
+            <button class="add-to-cart-btn" onclick="addToCart(this)">Adicionar ao Carrinho</button>
         </div>
-        <div class="card">
-            <img src="produto2.jpg" alt="Samsung S25">
-            <h3>Samsung S25</h3>
-            <p class="price">R$ 8.000</p>
+        <div class="card" data-id="2" data-name="Samsung S25 Ultra" data-price="8000.00" data-image="produto2.jpg">
+            <img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22100%25%22%20height%3D%22100%25%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23222%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2216%22%20fill%3D%22%23AAA%22%3ESamsung%20S25%20Ultra%3C%2Ftext%3E%3C%2Fsvg%3E" alt="Samsung S25 Ultra">
+            <h3>Samsung S25 Ultra</h3>
+            <p class="price">R$ 8.000,00</p>
+            <button class="add-to-cart-btn" onclick="addToCart(this)">Adicionar ao Carrinho</button>
         </div>
-        <div class="card">
-            <img src="produto3.jpg" alt="ASUS Vivobook">
-            <h3>ASUS Vivobook</h3>
-            <p class="price">R$ 4.000</p>
+        <div class="card" data-id="3" data-name="MacBook Pro M4" data-price="15000.00" data-image="produto3.jpg">
+            <img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22100%25%22%20height%3D%22100%25%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23222%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2216%22%20fill%3D%22%23AAA%22%3EMacBook%20Pro%20M4%3C%2Ftext%3E%3C%2Fsvg%3E" alt="MacBook Pro M4">
+            <h3>MacBook Pro M4</h3>
+            <p class="price">R$ 15.000,00</p>
+            <button class="add-to-cart-btn" onclick="addToCart(this)">Adicionar ao Carrinho</button>
         </div>
     </div>
+    
+    <h2 class="section-title" id="smartphones">📱 Smartphones</h2>
+    <div class="category-title">Apple</div>
+    <div class="grid">
+        <div class="card" data-id="4" data-name="iPhone 15 Padrão" data-price="7500.00" data-image="iphone15.jpg">
+            <img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22100%25%22%20height%3D%22100%25%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23222%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2216%22%20fill%3D%22%23AAA%22%3EiPhone%2015%3C%2Ftext%3E%3C%2Fsvg%3E" alt="iPhone 15 Padrão">
+            <h3>iPhone 15 Padrão</h3>
+            <p class="price">R$ 7.500,00</p>
+            <button class="add-to-cart-btn" onclick="addToCart(this)">Adicionar ao Carrinho</button>
+        </div>
+    </div>
+    
+    <div class="category-title">Samsung</div>
+    <div class="grid">
+        <div class="card" data-id="5" data-name="Galaxy Z Flip 6" data-price="6500.00" data-image="zflip6.jpg">
+            <img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22100%25%22%20height%3D%22100%25%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23222%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2216%22%20fill%3D%22%23AAA%22%3EGalaxy%20Z%20Flip%206%3C%2Ftext%3E%3C%2Fsvg%3E" alt="Galaxy Z Flip 6">
+            <h3>Galaxy Z Flip 6</h3>
+            <p class="price">R$ 6.500,00</p>
+            <button class="add-to-cart-btn" onclick="addToCart(this)">Adicionar ao Carrinho</button>
+        </div>
+        <div class="card" data-id="6" data-name="Galaxy A55" data-price="2500.00" data-image="a55.jpg">
+            <img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22100%25%22%20height%3D%22100%25%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23222%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2216%22%20fill%3D%22%23AAA%22%3EGalaxy%20A55%3C%2Ftext%3E%3C%2Fsvg%3E" alt="Galaxy A55">
+            <h3>Galaxy A55</h3>
+            <p class="price">R$ 2.500,00</p>
+            <button class="add-to-cart-btn" onclick="addToCart(this)">Adicionar ao Carrinho</button>
+        </div>
+    </div>
+    
+    <div class="category-title">Motorola</div>
+    <div class="grid">
+        <div class="card" data-id="7" data-name="Moto Edge 50 Pro" data-price="4200.00" data-image="edge50pro.jpg">
+            <img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22100%25%22%20height%3D%22100%25%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23222%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2216%22%20fill%3D%22%23AAA%22%3EMoto%20Edge%2050%20Pro%3C%2Ftext%3E%3C%2Fsvg%3E" alt="Moto Edge 50 Pro">
+            <h3>Moto Edge 50 Pro</h3>
+            <p class="price">R$ 4.200,00</p>
+            <button class="add-to-cart-btn" onclick="addToCart(this)">Adicionar ao Carrinho</button>
+        </div>
+    </div>
+    
+    <div class="category-title">Xiaomi</div>
+    <div class="grid">
+        <div class="card" data-id="8" data-name="Xiaomi 14 Pro" data-price="5500.00" data-image="xiomi14pro.jpg">
+            <img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22100%25%22%20height%3D%22100%25%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23222%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2216%22%20fill%3D%22%23AAA%22%3EXiaomi%2014%20Pro%3C%2Ftext%3E%3C%2Fsvg%3E" alt="Xiaomi 14 Pro">
+            <h3>Xiaomi 14 Pro</h3>
+            <p class="price">R$ 5.500,00</p>
+            <button class="add-to-cart-btn" onclick="addToCart(this)">Adicionar ao Carrinho</button>
+        </div>
+    </div>
+
+    <h2 class="section-title" id="notebooks">💻 Notebooks</h2>
+    <div class="category-title">Apple</div>
+    <div class="grid">
+        <div class="card" data-id="9" data-name="MacBook Air M3" data-price="9800.00" data-image="macbookairm3.jpg">
+            <img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22100%25%22%20height%3D%22100%25%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23222%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2216%22%20fill%3D%22%23AAA%22%3EMacBook%20Air%20M3%3C%2Ftext%3E%3C%2Fsvg%3E" alt="MacBook Air M3">
+            <h3>MacBook Air M3</h3>
+            <p class="price">R$ 9.800,00</p>
+            <button class="add-to-cart-btn" onclick="addToCart(this)">Adicionar ao Carrinho</button>
+        </div>
+    </div>
+    
+    <div class="category-title">ASUS</div>
+    <div class="grid">
+        <div class="card" data-id="10" data-name="ASUS Vivobook Pro" data-price="5500.00" data-image="vivobookpro.jpg">
+            <img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22100%25%22%20height%3D%22100%25%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23222%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2216%22%20fill%3D%22%23AAA%22%3EASUS%20Vivobook%20Pro%3C%2Ftext%3E%3C%2Fsvg%3E" alt="ASUS Vivobook Pro">
+            <h3>ASUS Vivobook Pro</h3>
+            <p class="price">R$ 5.500,00</p>
+            <button class="add-to-cart-btn" onclick="addToCart(this)">Adicionar ao Carrinho</button>
+        </div>
+    </div>
+    
+    <div class="category-title">Samsung</div>
+    <div class="grid">
+        <div class="card" data-id="11" data-name="Galaxy Book 4 Pro" data-price="7000.00" data-image="galaxybook4.jpg">
+            <img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22100%25%22%20height%3D%22100%25%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23222%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2216%22%20fill%3D%22%23AAA%22%3EGalaxy%20Book%204%20Pro%3C%2Ftext%3E%3C%2Fsvg%3E" alt="Galaxy Book 4 Pro">
+            <h3>Galaxy Book 4 Pro</h3>
+            <p class="price">R$ 7.000,00</p>
+            <button class="add-to-cart-btn" onclick="addToCart(this)">Adicionar ao Carrinho</button>
+        </div>
+    </div>
+    
+    <div class="category-title">Lenovo</div>
+    <div class="grid">
+        <div class="card" data-id="12" data-name="Lenovo Legion 7i" data-price="9500.00" data-image="legion7i.jpg">
+            <img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22100%25%22%20height%3D%22100%25%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23222%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2216%22%20fill%3D%22%23AAA%22%3ELenovo%20Legion%207i%3C%2Ftext%3E%3C%2Fsvg%3E" alt="Lenovo Legion 7i">
+            <h3>Lenovo Legion 7i</h3>
+            <p class="price">R$ 9.500,00</p>
+            <button class="add-to-cart-btn" onclick="addToCart(this)">Adicionar ao Carrinho</button>
+        </div>
+    </div>
+    
 
     <section class="footer-extended">
         <div class="footer-block" id="contato">
@@ -288,7 +593,7 @@
                 <div class="pix-code" id="pix-code">
                     00020126720014br.gov.bcb.pix0136959ef5f1-680c-4ca9-8260-724aaa1de1fd0210NexarStore5204000053039865802BR5925EDUARDO FRANCO LIMA DE CA6007ITAPEVI62200516NexarStoreAccont630466F6
                 </div>
-                <button class="pix-copy-btn" onclick="navigator.clipboard.writeText(document.getElementById('pix-code').innerText)">
+                <button class="pix-copy-btn" onclick="copyPixCode()">
                     Copiar Código PIX
                 </button>
             </div>
@@ -298,5 +603,125 @@
     <footer>
         <p>&copy; 2025 NexarStore. Todos os direitos reservados. | Desenvolvido por Eduardo</p>
     </footer>
+
+    <script>
+        // Array para armazenar os itens no carrinho
+        let cart = [];
+
+        // --- Funções de Navegação do Carrinho ---
+        function openNav() {
+            document.getElementById("cartSidebar").classList.add("open");
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeNav() {
+            document.getElementById("cartSidebar").classList.remove("open");
+            document.body.style.overflow = 'auto';
+        }
+
+        // --- Funções de Lógica do Carrinho ---
+        function addToCart(buttonElement) {
+            const card = buttonElement.closest('.card');
+            const id = card.getAttribute('data-id');
+            const name = card.getAttribute('data-name');
+            // Remove o R$ e substitui a vírgula por ponto para o JavaScript tratar como número
+            const priceText = card.querySelector('.price').textContent.replace('R$ ', '').replace('.', '').replace(',', '.').trim();
+            const price = parseFloat(priceText);
+            const image = card.getAttribute('data-image'); // Usamos o nome do arquivo fictício
+
+            // Verifica se o item já existe
+            const existingItem = cart.find(item => item.id === id);
+
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ id, name, price, image, quantity: 1 });
+            }
+
+            updateCartDisplay();
+            openNav(); 
+            // Usando o nome do produto para o alerta:
+            alert(`"${name}" adicionado ao carrinho!`); 
+        }
+        
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            updateCartDisplay();
+        }
+
+        function updateCartDisplay() {
+            const container = document.getElementById('cart-items-container');
+            const countSpan = document.getElementById('cart-count');
+            const subtotalSpan = document.getElementById('cart-subtotal');
+            const totalSpan = document.getElementById('cart-total');
+            const pixDiscountSpan = document.getElementById('pix-discount');
+            const emptyMessage = document.getElementById('empty-cart-message');
+            
+            // Limpa o conteúdo atual
+            container.innerHTML = '';
+            
+            if (cart.length === 0) {
+                countSpan.style.display = 'none';
+                // Garante que a mensagem esteja visível quando o carrinho está vazio
+                emptyMessage.style.display = 'block'; 
+                container.appendChild(emptyMessage);
+            } else {
+                emptyMessage.style.display = 'none';
+                
+                let subtotal = 0;
+                
+                cart.forEach(item => {
+                    subtotal += item.price * item.quantity;
+                    
+                    const itemElement = document.createElement('div');
+                    itemElement.classList.add('cart-item');
+                    
+                    // Como não temos imagens reais, usamos um placeholder no carrinho também
+                    const imgPlaceholder = `
+                        <img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22100%25%22%20height%3D%22100%25%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23555%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%228%22%20fill%3D%22%23CCC%22%3E${item.name.substring(0, 10)}%3C%2Ftext%3E%3C%2Fsvg%3E" alt="${item.name}">
+                    `;
+
+                    itemElement.innerHTML = `
+                        ${imgPlaceholder}
+                        <div class="item-details">
+                            <p><strong>${item.name}</strong></p>
+                            <p>Qtde: ${item.quantity} | R$ ${(item.price * item.quantity).toFixed(2).replace('.', ',')}</p>
+                        </div>
+                        <i class="fa-solid fa-trash" style="color: ${getComputedStyle(document.documentElement).getPropertyValue('--vermelho-erro')}; cursor: pointer;" onclick="removeFromCart('${item.id}')"></i>
+                    `;
+                    container.appendChild(itemElement);
+                });
+
+                // Atualiza o contador de itens
+                const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                countSpan.textContent = totalItems;
+                countSpan.style.display = 'inline-block';
+
+                // Cálculo dos Totais
+                const total = subtotal;
+                const pixDiscount = total * 0.90; // 10% de desconto
+                
+                // Atualiza o resumo
+                subtotalSpan.textContent = `R$ ${subtotal.toFixed(2).replace('.', ',')}`;
+                totalSpan.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
+                pixDiscountSpan.textContent = `R$ ${pixDiscount.toFixed(2).replace('.', ',')}`;
+            }
+        }
+        
+        // --- Função de Cópia PIX ---
+        function copyPixCode() {
+            const pixCode = document.getElementById('pix-code').innerText;
+            navigator.clipboard.writeText(pixCode).then(() => {
+                alert('Código PIX Copiado com sucesso!');
+            }).catch(err => {
+                console.error('Falha ao copiar o texto: ', err);
+                alert('Erro ao copiar o código. Por favor, copie manualmente.');
+            });
+        }
+        
+        // Inicializa o display do carrinho
+        updateCartDisplay();
+
+    </script>
 </body>
 </html>
