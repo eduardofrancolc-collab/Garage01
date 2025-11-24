@@ -1,656 +1,466 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head> 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NexarStore — Tecnologia Premium</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>NexarStore — Tecnologia Premium</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;800;900&family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root{
+      --bg:#000000; /* fundo preto conforme pedido */
+      --card:#0f1113;
+      --verde:#00C47A; /* acento verde original */
+      --muted:#9aa4b2;
+      --text:#ffffff;
+      --glass: rgba(255,255,255,0.03);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{font-family:Inter,system-ui,Arial;color:var(--text);background:var(--bg);margin:0}
 
-    <style>
-        :root {
-            --preto: #000000;
-            --verde: #00C47A;
-            --branco: #ffffff;
-            --cinza-escuro: #0d0d0d;
-            --fundo-carrinho: #1a1a1a;
-            --vermelho-erro: #ff4d4d;
-        }
+    /* Top bar */
+    header{background:linear-gradient(90deg,rgba(0,0,0,0.95),rgba(0,0,0,0.85));color:var(--text);padding:14px 18px;position:sticky;top:0;z-index:1200;border-bottom:3px solid var(--verde)}
+    .topbar{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:16px}
+    .logo{font-family:Poppins,Montserrat,Inter;font-weight:900;font-size:26px;letter-spacing:0.6px;color:var(--verde)}
+    .search{flex:1;display:flex;align-items:center;background:var(--glass);padding:8px;border-radius:10px;border:1px solid rgba(255,255,255,0.04)}
+    .search input{flex:1;background:transparent;border:0;color:var(--text);padding:8px;font-size:14px;outline:none}
+    .search button{background:var(--verde);border:0;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:700}
+    .nav-actions{display:flex;align-items:center;gap:12px}
+    .icon-btn{background:transparent;border:0;color:var(--text);font-size:18px;cursor:pointer;position:relative}
+    .badge{position:absolute;top:-6px;right:-6px;background:#ff4d4d;color:#fff;border-radius:50%;padding:2px 6px;font-size:12px}
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-        }
+    /* Hero */
+    main{max-width:1200px;margin:18px auto;padding:0 18px}
+    .hero{margin:24px 0;padding:28px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);border-radius:12px;display:flex;gap:20px;align-items:center}
+    .hero-left{flex:1}
+    .hero h1{font-family:Poppins;font-size:34px;margin:0 0 6px;color:var(--verde)}
+    .hero p{color:var(--muted);margin:0 0 12px}
+    .hero .cta{display:inline-block;background:var(--verde);color:#000;padding:12px 18px;border-radius:10px;font-weight:800;text-decoration:none}
+    .hero-right{width:320px}
+    .hero-right img{width:100%;border-radius:10px;display:block}
 
-        body {
-            background: var(--preto);
-            color: var(--branco);
-        }
+    /* Section headers */
+    .section-title{color:var(--verde);font-weight:800;margin:18px 0 8px}
 
-        header {
-            background: var(--cinza-escuro);
-            padding: 25px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid var(--verde);
-            position: sticky; 
-            top: 0;
-            z-index: 1000;
-        }
+    /* Grid */
+    .products{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+    .product{background:var(--card);padding:12px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.03);display:flex;flex-direction:column}
+    .product img{width:100%;height:160px;object-fit:cover;border-radius:8px;background:#222}
+    .product h3{font-size:16px;margin:10px 0 6px}
+    .price-row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+    .price{font-weight:900;color:var(--verde)}
+    .actions{margin-top:10px;display:flex;gap:8px}
+    .btn-ghost{flex:1;padding:10px;border-radius:8px;border:1px dashed rgba(255,255,255,0.04);background:transparent;cursor:pointer;color:var(--text)}
+    .btn-primary{flex:1;padding:10px;border-radius:8px;border:0;background:var(--verde);color:#000;cursor:pointer;font-weight:700}
 
-        header h1 {
-            font-size: 32px;
-            font-weight: 900;
-            color: var(--verde);
-            letter-spacing: 1px;
-            font-family: 'Montserrat', sans-serif; 
-        }
+    /* Footer */
+    footer{background:#070707;color:var(--text);padding:28px 18px;margin-top:30px;border-top:1px solid rgba(255,255,255,0.03)}
+    .footer-inner{max-width:1200px;margin:0 auto;display:flex;gap:20px;flex-wrap:wrap}
+    .col{flex:1;min-width:200px}
+    .col h4{color:var(--verde);margin-bottom:8px}
+    .muted{color:var(--muted);font-size:14px}
 
-        nav {
-            display: flex;
-            align-items: center;
-        }
+    /* Cart sidebar */
+    .cart-sidebar{position:fixed;right:0;top:0;height:100vh;width:0;overflow:hidden;background:var(--card);color:var(--text);transition:width .35s ease;z-index:1300;border-left:4px solid var(--verde)}
+    .cart-sidebar.open{width:420px;box-shadow:-8px 0 40px rgba(0,0,0,0.6)}
+    .cart-inner{padding:20px;height:100%;display:flex;flex-direction:column}
+    .cart-list{flex:1;overflow:auto;margin-top:16px}
+    .cart-item{display:flex;gap:12px;align-items:center;padding:8px 0;border-bottom:1px solid rgba(0,0,0,0.2)}
+    .cart-item img{width:64px;height:64px;object-fit:cover;border-radius:8px}
+    .cart-footer{padding-top:12px}
+    .whatsapp-btn{display:block;background:#25d366;color:#fff;padding:12px;border-radius:10px;text-align:center;text-decoration:none;font-weight:800}
 
-        nav a {
-            margin-left: 24px;
-            color: var(--branco);
-            text-decoration: none;
-            font-weight: 700;
-            transition: 0.3s;
-        }
+    /* Auth modal */
+    .modal{position:fixed;left:0;top:0;width:100%;height:100%;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);z-index:1400}
+    .modal.open{display:flex}
+    .modal-card{background:var(--card);padding:20px;border-radius:12px;max-width:420px;width:100%;color:var(--text)}
 
-        nav a:hover {
-            color: var(--verde);
-        }
-        
-        .cart-icon {
-            font-size: 20px;
-            margin-left: 30px;
-            cursor: pointer;
-            color: var(--branco);
-            transition: 0.3s;
-            position: relative;
-        }
+    /* Meus Pedidos */
+    .orders-list{display:grid;gap:12px}
+    .order-card{background:#0b0c0d;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)}
 
-        .cart-icon:hover {
-            color: var(--verde);
-        }
-        
-        #cart-count {
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            background: var(--vermelho-erro);
-            color: var(--branco);
-            border-radius: 50%;
-            padding: 2px 6px;
-            font-size: 12px;
-            font-weight: 700;
-            line-height: 1;
-            display: none; 
-        }
-
-        /* HERO section */
-        .hero {
-            background-image: url("https://raw.githubusercontent.com/eduardofrancolc-collab/Nexar-Store/main/loja%20imag.png");
-            background-size: cover;
-            background-position: center;
-            text-align: center;
-            padding: 50px 20px; 
-        }
-
-        .hero h2 {
-            font-size: 38px;
-            font-weight: 800;
-            font-family: 'Montserrat', sans-serif; 
-        }
-
-        .hero p {
-            margin-top: 10px;
-            font-size: 18px;
-            opacity: 0.8;
-        }
-
-        .btn {
-            background: var(--verde);
-            padding: 15px 28px;
-            display: inline-block;
-            border-radius: 12px;
-            color: #000;
-            font-weight: 900;
-            margin-top: 22px;
-            text-decoration: none;
-            font-size: 18px;
-            cursor: pointer;
-        }
-
-        /* Títulos de Seção e Categoria */
-        .section-title {
-            padding: 50px 20px 10px;
-            font-size: 32px;
-            font-weight: 800;
-            color: var(--verde);
-            font-family: 'Montserrat', sans-serif;
-        }
-        
-        .category-title {
-            padding: 10px 30px;
-            font-size: 24px;
-            font-weight: 800;
-            color: var(--branco);
-            border-left: 5px solid var(--verde);
-            margin-top: 30px;
-        }
-
-        .grid {
-            padding: 30px;
-            /* Layout padrão para desktop (múltiplas colunas) */
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            display: grid;
-            gap: 30px;
-        }
-
-        .card {
-            background: #111;
-            padding: 18px;
-            border-radius: 14px;
-            transition: 0.3s;
-            border: 1px solid #222;
-        }
-
-        .card:hover {
-            transform: scale(1.03);
-            border-color: var(--verde);
-        }
-
-        .card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 12px;
-            background-color: #333; 
-            display: block;
-            line-height: 200px;
-            text-align: center;
-            color: #fff;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .card h3 {
-            margin: 15px 0 5px;
-            font-weight: 800;
-        }
-
-        .price {
-            color: var(--verde);
-            font-weight: 900;
-            font-size: 20px;
-            margin-bottom: 15px;
-        }
-        
-        .add-to-cart-btn {
-            background: var(--verde);
-            color: #000;
-            border: none;
-            padding: 10px;
-            border-radius: 8px;
-            font-weight: 700;
-            width: 100%;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .add-to-cart-btn:hover {
-            background: #00e08c;
-        }
-
-        /* --- Estilização do Carrinho Dinâmico (Sidebar) --- */
-        .cart-sidebar {
-            height: 100%;
-            width: 0; 
-            position: fixed;
-            z-index: 2000;
-            top: 0;
-            right: 0;
-            background-color: var(--fundo-carrinho);
-            overflow-x: hidden;
-            transition: 0.5s;
-            padding-top: 60px;
-            border-left: 3px solid var(--verde);
-            box-shadow: -5px 0 15px rgba(0,0,0,0.5);
-            max-width: 400px; /* Largura máxima para desktop */
-        }
-
-        .cart-sidebar.open {
-            max-width: 400px;
-            width: 90%; /* Ajuste para não encostar na borda em telas grandes */
-        }
-        /* [Estilos do carrinho omitidos para brevidade, mas mantidos no final] */
-        .cart-header { padding: 20px 25px; position: absolute; top: 0; width: 100%; background: #111; border-bottom: 1px solid #222; }
-        .cart-header h3 { font-family: 'Montserrat', sans-serif; color: var(--verde); display: inline-block; }
-        .close-btn { position: absolute; top: 10px; right: 25px; font-size: 36px; margin-left: 50px; text-decoration: none; color: var(--branco); transition: 0.3s; cursor: pointer; }
-        .close-btn:hover { color: var(--vermelho-erro); }
-        .cart-items { padding: 20px 25px; max-height: calc(100vh - 350px); overflow-y: auto; }
-        .cart-item { display: flex; align-items: center; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #222; }
-        .cart-item img { width: 60px; height: 60px; object-fit: cover; border-radius: 6px; margin-right: 15px; background-color: #555; line-height: 60px; font-size: 10px; color: #ccc; }
-        .item-details { flex-grow: 1; }
-        .item-details p { font-size: 14px; margin: 3px 0; }
-        #empty-cart-message { text-align: center; padding: 50px 0; opacity: 0.6; }
-        .cart-summary { position: absolute; bottom: 0; width: 100%; background: #0d0d0d; padding: 20px 25px; border-top: 1px solid var(--verde); }
-        .cart-summary p { display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 10px; }
-        .cart-summary .total { font-size: 20px; color: var(--verde); margin-top: 10px; }
-        .checkout-btn { width: 100%; background: var(--verde); color: #000; padding: 15px; border: none; border-radius: 8px; font-weight: 900; font-size: 18px; cursor: pointer; transition: 0.3s; }
-        .payment-options-container { margin-top: 20px; padding-top: 10px; border-top: 1px dashed #444; }
-        .payment-options-container h4 { color: var(--verde); margin-bottom: 10px; font-family: 'Montserrat', sans-serif; font-size: 16px; }
-        .pix-code-cart { background: #222; padding: 10px; border-radius: 5px; font-size: 10px; word-break: break-all; opacity: 0.8; margin-top: 5px; }
-
-        /* Rodapé Estendido */
-        .footer-extended {
-            background: var(--preto);
-            color: var(--branco);
-            padding: 40px 40px 10px;
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 30px;
-            border-top: 1px solid #222;
-        }
-
-        .footer-block {
-            max-width: 300px;
-        }
-
-        .footer-block h3 {
-            color: var(--verde);
-            margin-bottom: 15px;
-            font-weight: 900;
-            font-size: 22px;
-        }
-        
-        footer {
-            background: var(--cinza-escuro);
-            padding: 20px;
-            text-align: center;
-            border-top: 2px solid var(--verde);
-        }
-        
-        /* ============================================== */
-        /* MEDIA QUERY PARA CELULARES           */
-        /* ============================================== */
-        @media (max-width: 768px) {
-            
-            header {
-                padding: 15px 20px; /* Reduz o padding do cabeçalho */
-            }
-
-            header h1 {
-                font-size: 24px; /* Reduz o tamanho do logo */
-            }
-
-            /* Esconde os links do menu principal em telas pequenas */
-            nav a {
-                display: none;
-            }
-
-            /* Garante que o ícone do carrinho fique visível */
-            .cart-icon {
-                 margin-left: 10px;
-            }
-
-            .hero h2 {
-                font-size: 30px; /* Título principal menor */
-            }
-
-            .section-title {
-                padding: 30px 20px 5px;
-                font-size: 26px; /* Título de seção menor */
-            }
-
-            .category-title {
-                padding: 10px 20px;
-                font-size: 20px;
-            }
-
-            .grid {
-                padding: 20px;
-                /* REGRAS PRINCIPAIS: Layout de Colunas */
-                grid-template-columns: 1fr; /* Apenas 1 coluna em telas pequenas */
-                gap: 20px;
-            }
-            
-            /* Rodapé em Coluna */
-            .footer-extended {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-                padding: 30px 20px 10px;
-            }
-
-            .footer-block {
-                max-width: 100%;
-            }
-
-            /* Carrinho Lateral ocupa a tela toda */
-            .cart-sidebar.open {
-                width: 100%;
-                max-width: 100%;
-            }
-        }
-
-    </style>
+    /* Responsive tweaks */
+    @media (max-width:720px){
+      .hero{flex-direction:column}
+      .hero-right{width:100%}
+      .cart-sidebar.open{width:100%}
+      .logo{font-size:22px}
+    }
+  </style>
 </head>
-
 <body>
-    <div id="cartSidebar" class="cart-sidebar">
-        <div class="cart-header">
-            <a href="javascript:void(0)" class="close-btn" onclick="closeNav()">&times;</a>
-            <h3>Seu Carrinho</h3>
-        </div>
-        
-        <div class="cart-items" id="cart-items-container">
-            <p id="empty-cart-message">Seu carrinho está vazio. Adicione um produto!</p>
-        </div>
-
-        <div class="cart-summary">
-            <p>Subtotal: <span id="cart-subtotal">R$ 0,00</span></p>
-            <p class="total">Total: <span id="cart-total">R$ 0,00</span></p>
-
-            <div class="payment-options-container">
-                <h4>Pagamento Rápido</h4>
-                <p><strong>PIX (10% OFF):</strong> <span id="pix-discount">R$ 0,00</span></p>
-                <div class="pix-code-cart">
-                    <p>Copia e Cola PIX (Automático):</p>
-                    <p>00020126720014br.gov.bcb.pix0136959ef5f1-680c-4ca9-8260-724aaa1de1fd0210NexarStore5204000053039865802BR5925EDUARDO FRANCO LIMA DE CA6007ITAPEVI62200516NexarStoreAccont630466F6</p>
-                </div>
-                <ul style="list-style: none; margin-top: 10px; font-size: 14px;">
-                    <li><i class="fa-solid fa-credit-card"></i> Cartão em até 12x</li>
-                    <li><i class="fa-solid fa-barcode"></i> Boleto Bancário</li>
-                </ul>
-            </div>
-
-            <button class="checkout-btn" onclick="alert('Funcionalidade de Checkout Ativada!')">
-                Prosseguir para o Pagamento
-            </button>
-        </div>
+  <header>
+    <div class="topbar">
+      <div class="logo">NexarStore</div>
+      <div class="search" role="search" aria-label="Pesquisar produtos">
+        <input id="searchInput" placeholder="Buscar iPhone, notebook, fone..." aria-label="Campo de busca">
+        <button id="searchBtn">Buscar</button>
+      </div>
+      <div class="nav-actions">
+        <button class="icon-btn" id="accountBtn" title="Minha Conta"><i class="fa-regular fa-user"></i></button>
+        <button class="icon-btn" id="ordersBtn" title="Meus Pedidos">Meus Pedidos</button>
+        <button class="icon-btn" id="openCartBtn" aria-label="Abrir carrinho"><i class="fa-solid fa-cart-shopping"></i><span class="badge" id="cartBadge" style="display:none">0</span></button>
+      </div>
     </div>
-    <header>
-        <h1>NexarStore</h1>
-        <nav>
-            <a href="#produtos">Destaques</a>
-            <a href="#smartphones">Smartphones</a>
-            <a href="#notebooks">Notebooks</a>
-            <a href="#contato">Contato</a>
-            <i class="fa-solid fa-cart-shopping cart-icon" title="Carrinho de Compras" onclick="openNav()">
-                <span id="cart-count">0</span>
-            </i>
-        </nav>
-    </header>
+  </header>
 
+  <main>
     <section class="hero">
-        <h2>Sua Loja Premium de Tecnologia</h2>
-        <p>Aparelhos originais, preços acessíveis e confiança total.</p>
-        <a href="#produtos" class="btn">Ver Ofertas</a>
-    </section>
-    
-    <h2 class="section-title" id="produtos">🔥 Produtos em Destaque</h2>
-    <div class="grid">
-        <div class="card" data-id="1" data-name="iPhone 16 Pro Max" data-price="10000.00" data-image="produto1.jpg">
-            <img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22100%25%22%20height%3D%22100%25%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23222%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2216%22%20fill%3D%22%23AAA%22%3EiPhone%2016%20Pro%20Max%3C%2Ftext%3E%3C%2Fsvg%3E" alt="iPhone 16 Pro Max">
-            <h3>iPhone 16 Pro Max</h3>
-            <p class="price">R$ 10.000,00</p>
-            <button class="add-to-cart-btn" onclick="addToCart(this)">Adicionar ao Carrinho</button>
-        </div>
-        <div class="card" data-id="2" data-name="Samsung S25 Ultra" data-price="8000.00" data-image="produto2.jpg">
-            <img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22100%25%22%20height%3D%22100%25%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23222%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2216%22%20fill%3D%22%23AAA%22%3ESamsung%20S25%20Ultra%3C%2Ftext%3E%3C%2Fsvg%3E" alt="Samsung S25 Ultra">
-            <h3>Samsung S25 Ultra</h3>
-            <p class="price">R$ 8.000,00</p>
-            <button class="add-to-cart-btn" onclick="addToCart(this)">Adicionar ao Carrinho</button>
-        </div>
-        <div class="card" data-id="3" data-name="MacBook Pro M4" data-price="15000.00" data-image="produto3.jpg">
-            <img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22100%25%22%20height%3D%22100%25%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23222%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2216%22%20fill%3D%22%23AAA%22%3EMacBook%20Pro%20M4%3C%2Ftext%3E%3C%2Fsvg%3E" alt="MacBook Pro M4">
-            <h3>MacBook Pro M4</h3>
-            <p class="price">R$ 15.000,00</p>
-            <button class="add-to-cart-btn" onclick="addToCart(this)">Adicionar ao Carrinho</button>
-        </div>
-    </div>
-    
-    <h2 class="section-title" id="smartphones">📱 Smartphones</h2>
-    <div class="category-title">Apple</div>
-    <div class="grid">
-        <div class="card" data-id="4" data-name="iPhone 15 Padrão" data-price="7500.00" data-image="iphone15.jpg">
-            <img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22100%25%22%20height%3D%22100%25%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23222%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2216%22%20fill%3D%22%23AAA%22%3EiPhone%2015%3C%2Ftext%3E%3C%2Fsvg%3E" alt="iPhone 15 Padrão">
-            <h3>iPhone 15 Padrão</h3>
-            <p class="price">R$ 7.500,00</p>
-            <button class="add-to-cart-btn" onclick="addToCart(this)">Adicionar ao Carrinho</button>
-        </div>
-    </div>
-    
-    <div class="category-title">Samsung</div>
-    <div class="grid">
-        <div class="card" data-id="5" data-name="Galaxy Z Flip 6" data-price="6500.00" data-image="zflip6.jpg">
-            <img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22100%25%22%20height%3D%22100%25%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23222%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2216%22%20fill%3D%22%23AAA%22%3EGalaxy%20Z%20Flip%206%3C%2Ftext%3E%3C%2Fsvg%3E" alt="Galaxy Z Flip 6">
-            <h3>Galaxy Z Flip 6</h3>
-            <p class="price">R$ 6.500,00</p>
-            <button class="add-to-cart-btn" onclick="addToCart(this)">Adicionar ao Carrinho</button>
-        </div>
-        <div class="card" data-id="6" data-name="Galaxy A55" data-price="2500.00" data-image="a55.jpg">
-            <img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22100%25%22%20height%3D%22100%25%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23222%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2216%22%20fill%3D%22%23AAA%22%3EGalaxy%20A55%3C%2Ftext%3E%3C%2Fsvg%3E" alt="Galaxy A55">
-            <h3>Galaxy A55</h3>
-            <p class="price">R$ 2.500,00</p>
-            <button class="add-to-cart-btn" onclick="addToCart(this)">Adicionar ao Carrinho</button>
-        </div>
-    </div>
-    
-    <div class="category-title">Motorola</div>
-    <div class="grid">
-        <div class="card" data-id="7" data-name="Moto Edge 50 Pro" data-price="4200.00" data-image="edge50pro.jpg">
-            <img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22100%25%22%20height%3D%22100%25%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23222%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2216%22%20fill%3D%22%23AAA%22%3EMoto%20Edge%2050%20Pro%3C%2Ftext%3E%3C%2Fsvg%3E" alt="Moto Edge 50 Pro">
-            <h3>Moto Edge 50 Pro</h3>
-            <p class="price">R$ 4.200,00</p>
-            <button class="add-to-cart-btn" onclick="addToCart(this)">Adicionar ao Carrinho</button>
-        </div>
-    </div>
-    
-    <div class="category-title">Xiaomi</div>
-    <div class="grid">
-        <div class="card" data-id="8" data-name="Xiaomi 14 Pro" data-price="5500.00" data-image="xiomi14pro.jpg">
-            <img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22100%25%22%20height%3D%22100%25%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23222%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2216%22%20fill%3D%22%23AAA%22%3EXiaomi%2014%20Pro%3C%2Ftext%3E%3C%2Fsvg%3E" alt="Xiaomi 14 Pro">
-            <h3>Xiaomi 14 Pro</h3>
-            <p class="price">R$ 5.500,00</p>
-            <button class="add-to-cart-btn" onclick="addToCart(this)">Adicionar ao Carrinho</button>
-        </div>
-    </div>
-
-    <h2 class="section-title" id="notebooks">💻 Notebooks</h2>
-    <div class="category-title">Apple</div>
-    <div class="grid">
-        <div class="card" data-id="9" data-name="MacBook Air M3" data-price="9800.00" data-image="macbookairm3.jpg">
-            <img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22100%25%22%20height%3D%22100%25%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23222%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2216%22%20fill%3D%22%23AAA%22%3EMacBook%20Air%20M3%3C%2Ftext%3E%3C%2Fsvg%3E" alt="MacBook Air M3">
-            <h3>MacBook Air M3</h3>
-            <p class="price">R$ 9.800,00</p>
-            <button class="add-to-cart-btn" onclick="addToCart(this)">Adicionar ao Carrinho</button>
-        </div>
-    </div>
-    
-    <div class="category-title">ASUS</div>
-    <div class="grid">
-        <div class="card" data-id="10" data-name="ASUS Vivobook Pro" data-price="5500.00" data-image="vivobookpro.jpg">
-            <img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22100%25%22%20height%3D%22100%25%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23222%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2216%22%20fill%3D%22%23AAA%22%3EASUS%20Vivobook%20Pro%3C%2Ftext%3E%3C%2Fsvg%3E" alt="ASUS Vivobook Pro">
-            <h3>ASUS Vivobook Pro</h3>
-            <p class="price">R$ 5.500,00</p>
-            <button class="add-to-cart-btn" onclick="addToCart(this)">Adicionar ao Carrinho</button>
-        </div>
-    </div>
-    
-    <div class="category-title">Samsung</div>
-    <div class="grid">
-        <div class="card" data-id="11" data-name="Galaxy Book 4 Pro" data-price="7000.00" data-image="galaxybook4.jpg">
-            <img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22100%25%22%20height%3D%22100%25%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23222%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2216%22%22%20fill%3D%22%23AAA%22%3EGalaxy%20Book%204%20Pro%3C%2Ftext%3E%3C%2Fsvg%3E" alt="Galaxy Book 4 Pro">
-            <h3>Galaxy Book 4 Pro</h3>
-            <p class="price">R$ 7.000,00</p>
-            <button class="add-to-cart-btn" onclick="addToCart(this)">Adicionar ao Carrinho</button>
-        </div>
-    </div>
-    
-    <div class="category-title">Lenovo</div>
-    <div class="grid">
-        <div class="card" data-id="12" data-name="Lenovo Legion 7i" data-price="9500.00" data-image="legion7i.jpg">
-            <img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22100%25%22%20height%3D%22100%25%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23222%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%2216%22%20fill%3D%22%23AAA%22%3ELenovo%20Legion%207i%3C%2Ftext%3E%3C%2Fsvg%3E" alt="Lenovo Legion 7i">
-            <h3>Lenovo Legion 7i</h3>
-            <p class="price">R$ 9.500,00</p>
-            <button class="add-to-cart-btn" onclick="addToCart(this)">Adicionar ao Carrinho</button>
-        </div>
-    </div>
-    
-
-    <section class="footer-extended">
-        <div class="footer-block" id="contato">
-            <h3>Contato</h3>
-            <p><strong>Whatsapp:</strong> +55 11 97042-0650</p>
-            <p><strong>Email:</strong> nexarstore@gmail.com</p>
-        </div>
-
-        <div class="footer-block">
-            <h3>Formas de Pagamento</h3>
-            <p>Aceitamos as seguintes formas de pagamento:</p>
-            <ul>
-                <li>PIX (Entrega Imediata)</li>
-                <li>Cartão de Crédito (Via Mercado Pago)</li>
-                <li>Boleto Bancário (Via PagSeguro)</li>
-            </ul>
-        </div>
-
-        <div class="footer-block">
-            <h3>PIX para Pagamento</h3>
-            <p>Chave PIX: **959ef5f1-680c-4ca9-8260-724aaa1de1fd**</p>
-            <div class="pix-area">
-                <p>Copia e Cola do PIX (QR Code Estático)</p>
-                <div class="pix-code" id="pix-code">
-                    00020126720014br.gov.bcb.pix0136959ef5f1-680c-4ca9-8260-724aaa1de1fd0210NexarStore5204000053039865802BR5925EDUARDO FRANCO LIMA DE CA6007ITAPEVI62200516NexarStoreAccont630466F6
-                </div>
-                <button class="pix-copy-btn" onclick="copyPixCode()">
-                    Copiar Código PIX
-                </button>
-            </div>
-        </div>
+      <div class="hero-left">
+        <h1>Ofertas incríveis em tecnologia</h1>
+        <p>Produtos selecionados, garantia e suporte. Frete rápido e opção de pagamento via PIX com desconto.</p>
+        <a class="cta" href="#produtos">Ver ofertas</a>
+      </div>
+      <div class="hero-right">
+        <img src="https://raw.githubusercontent.com/eduardofrancolc-collab/Nexar-Store/main/loja%20imag.png" alt="Banner de tecnologia" />
+      </div>
     </section>
 
-    <footer>
-        <p>&copy; 2025 NexarStore. Todos os direitos reservados. | Desenvolvido por Eduardo</p>
-    </footer>
+    <section id="produtos" style="margin-top:6px">
+      <div class="section-title">Destaques</div>
+      <div class="products" id="productsGrid"></div>
+    </section>
 
-    <script>
-        // Array para armazenar os itens no carrinho
-        let cart = [];
+    <section style="margin-top:22px">
+      <div class="section-title">Sobre</div>
+      <div style="background:var(--card);padding:18px;border-radius:12px;">
+        <p class="muted">NexarStore é uma loja virtual focada em celulares, notebooks e acessórios. Atendimento via WhatsApp e envio rápido para todo Brasil.</p>
+      </div>
+    </section>
 
-        // --- Funções de Navegação do Carrinho ---
-        function openNav() {
-            document.getElementById("cartSidebar").classList.add("open");
-            document.body.style.overflow = 'hidden'; 
+    <section id="contato" style="margin-top:22px">
+      <div style="display:grid;grid-template-columns:1fr 320px;gap:18px">
+        <div style="background:var(--card);padding:18px;border-radius:12px;">
+          <form id="contactForm">
+            <label>Nome <input type="text" name="name" required style="width:100%;padding:8px;margin-top:6px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text)"></label>
+            <label style="display:block;margin-top:10px">E‑mail <input type="email" name="email" required style="width:100%;padding:8px;margin-top:6px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text)"></label>
+            <label style="display:block;margin-top:10px">Mensagem <textarea name="msg" required style="width:100%;padding:8px;margin-top:6px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text);min-height:120px"></textarea></label>
+            <div style="margin-top:10px;text-align:right"><button type="submit" style="background:var(--verde);color:#000;padding:10px 14px;border-radius:8px;border:0;">Enviar Mensagem</button></div>
+          </form>
+        </div>
+        <div style="background:var(--card);padding:18px;border-radius:12px;">
+          <h4>Atendimento</h4>
+          <p class="muted">Whatsapp: <a href="https://wa.me/5511970420650" target="_blank">+55 11 97042-0650</a></p>
+          <p class="muted">Email: nexarstore@gmail.com</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Meus Pedidos -->
+    <section id="meusPedidosSection" style="margin-top:26px;display:none">
+      <div class="section-title">Meus Pedidos</div>
+      <div style="background:var(--card);padding:18px;border-radius:12px;">
+        <div id="ordersArea">
+          <p class="muted">Nenhum pedido encontrado.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <aside id="cartSidebar" class="cart-sidebar" aria-hidden="true">
+    <div class="cart-inner">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <h3>Seu Carrinho</h3>
+        <button id="closeCart" class="icon-btn" style="color:var(--text)"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="cart-list" id="cartList">
+        <p class="muted">Carrinho vazio. Adicione produtos.</p>
+      </div>
+      <div class="cart-footer">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><strong>Total</strong><strong id="cartTotal">R$ 0,00</strong></div>
+        <a id="checkoutWhatsApp" class="whatsapp-btn" href="#">Finalizar via WhatsApp</a>
+        <div style="margin-top:8px;text-align:center;color:var(--muted);font-size:13px">10% OFF no PIX</div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="modal" id="authModal" aria-hidden="true">
+    <div class="modal-card">
+      <h3>Entrar / Criar Conta</h3>
+      <form id="authForm">
+        <label>Email <input name="email" type="email" required style="width:100%;padding:8px;margin-top:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text)"></label>
+        <label style="display:block;margin-top:8px">Senha <input name="pass" type="password" required style="width:100%;padding:8px;margin-top:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text)"></label>
+        <div style="margin-top:12px;text-align:right"><button type="submit" style="background:var(--verde);color:#000;padding:8px 12px;border-radius:8px;border:0">Entrar / Criar</button></div>
+        <div style="margin-top:10px;color:var(--muted);font-size:13px">Preferência: Faça login para salvar e visualizar seus pedidos.</div>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="col">
+        <h4>Sobre</h4>
+        <p class="muted">NexarStore — Tecnologia premium com atendimento humano e garantia.</p>
+      </div>
+      <div class="col">
+        <h4>Pagamento</h4>
+        <p class="muted">PIX, Cartão (parcele até 12x), Boleto</p>
+      </div>
+      <div class="col">
+        <h4>Contato</h4>
+        <p class="muted">Whatsapp: +55 11 97042-0650</p>
+        <p class="muted">Email: nexarstore@gmail.com</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SDKs do Firebase (Versões compat) -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+  <!-- Adicionado o SDK do Analytics compat -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-analytics-compat.js"></script>
+
+  <script>
+    /* ===== Configurações Firebase ===== */
+    // Seu objeto firebaseConfig, copiado do console do Firebase!
+    const firebaseConfig = {
+      apiKey: "AIzaSyBCpwBVdyQeK4V2d3oTAoHXl3WJzS8maKM",
+      authDomain: "nexarstore-810a6.firebaseapp.com",
+      projectId: "nexarstore-810a6",
+      storageBucket: "nexarstore-810a6.firebasestorage.app",
+      messagingSenderId: "592156805210",
+      appId: "1:592156805210:web:9c25585b68516d06ac3063",
+      measurementId: "G-9K37F5QX0N" // Seu ID do Google Analytics
+    };
+
+    let useFirebase = false;
+    if (firebaseConfig) {
+      try {
+        // Inicialize o Firebase com suas configurações
+        const app = firebase.initializeApp(firebaseConfig);
+
+        // Obtenha as instâncias dos serviços de Autenticação e Firestore
+        window.auth = firebase.auth();
+        window.db = firebase.firestore();
+
+        // Se o measurementId estiver presente e você quiser usar o Analytics, inicialize-o:
+        // window.analytics = firebase.analytics(); // Descomente esta linha se for usar o Analytics
+
+        useFirebase = true;
+        console.log('Firebase inicializado com sucesso!');
+      } catch (e) {
+        console.warn('Erro ao inicializar Firebase:', e);
+      }
+    }
+
+    /* ===== Dados iniciais (produtos) ===== */
+    const PRODUCTS = [
+      {id:1,name:'iPhone 16 Pro Max',price:10000,image:'https://raw.githubusercontent.com/eduardofrancolc-collab/Nexar-Store/main/produto1.jpg'},
+      {id:2,name:'Samsung S25 Ultra',price:8000,image:'https://raw.githubusercontent.com/eduardofrancolc-collab/Nexar-Store/main/produto2.jpg'},
+      {id:3,name:'MacBook Pro M4',price:15000,image:'https://raw.githubusercontent.com/eduardofrancolc-collab/Nexar-Store/main/produto3.jpg'},
+      {id:4,name:'AirPods Pro 3',price:1200,image:'https://raw.githubusercontent.com/eduardofrancolc-collab/Nexar-Store/main/produto4.jpg'},
+      {id:5,name:'Apple Watch Series 10',price:3500,image:'https://raw.githubusercontent.com/eduardofrancolc-collab/Nexar-Store/main/produto5.jpg'}
+    ];
+
+    /* ===== Render de produtos ===== */
+    const grid = document.getElementById('productsGrid');
+    function formatBRL(v){return 'R$ '+v.toFixed(2).replace('.',',')}
+    function renderProducts(list){
+      grid.innerHTML='';
+      list.forEach(p=>{
+        const card = document.createElement('div');card.className='product';
+        card.innerHTML = `
+          <img src="${p.image}" alt="${p.name}">
+          <h3>${p.name}</h3>
+          <div class="price-row"><div class="price">${formatBRL(p.price)}</div></div>
+          <div class="actions">
+            <button class="btn-ghost" onclick="viewDetails(${p.id})">Detalhes</button>
+            <button class="btn-primary" onclick="addToCart(${p.id})">Adicionar</button>
+          </div>`;
+        grid.appendChild(card);
+      });
+    }
+    renderProducts(PRODUCTS);
+
+    /* ===== Busca simples ===== */
+    document.getElementById('searchBtn').addEventListener('click',()=>{
+      const q=document.getElementById('searchInput').value.trim().toLowerCase();
+      if(!q){renderProducts(PRODUCTS);return}
+      renderProducts(PRODUCTS.filter(p=>p.name.toLowerCase().includes(q)));
+    })
+
+    /* ===== Carrinho ===== */
+    let cart = JSON.parse(localStorage.getItem('nexar_cart')||'[]');
+    const cartList = document.getElementById('cartList');
+    const cartTotalEl = document.getElementById('cartTotal');
+    const cartBadge = document.getElementById('cartBadge');
+
+    function saveCart(){localStorage.setItem('nexar_cart',JSON.stringify(cart));updateCartUI()}
+    function addToCart(id){
+      const p = PRODUCTS.find(x=>x.id===id);if(!p)return;const found = cart.find(i=>i.id===id);
+      if(found) found.qty++; else cart.push({id:p.id,name:p.name,price:p.price,image:p.image,qty:1});
+      saveCart();openCart();
+    }
+    function removeFromCart(id){cart = cart.filter(i=>i.id!==id);saveCart()}
+    function updateCartUI(){
+      cartList.innerHTML='';
+      if(cart.length===0){cartList.innerHTML='<p class="muted">Carrinho vazio. Adicione produtos.</p>';cartBadge.style.display='none';cartTotalEl.textContent='R$ 0,00';return}
+      let total=0;cart.forEach(item=>{total += item.price*item.qty; const div=document.createElement('div');div.className='cart-item';div.innerHTML = `
+        <img src="${item.image}" alt="${item.name}">
+        <div style="flex:1">
+          <div style=\"font-weight:700\">${item.name}</div>
+          <div style=\"color:var(--muted);font-size:13px\">Qtde: ${item.qty} — ${formatBRL(item.price*item.qty)}</div>
+        </div>
+        <div style=\"display:flex;flex-direction:column;gap:6px\">
+          <button class=\"btn-ghost\" style=\"padding:6px 8px\" onclick=\"decreaseQty(${item.id})\">-</button>
+          <button class=\"btn-ghost\" style=\"padding:6px 8px\" onclick=\"increaseQty(${item.id})\">+</button>
+          <button class=\"btn-ghost\" style=\"padding:6px 8px;color:#ff4d4d\" onclick=\"removeFromCart(${item.id})\">Remover</button>
+        </div>`;cartList.appendChild(div);
+      });
+      const totalItems = cart.reduce((s,i)=>s+i.qty,0);
+      cartBadge.textContent = totalItems;cartBadge.style.display='inline-block';cartTotalEl.textContent = formatBRL(total);
+      // atualizar link de checkout via WhatsApp com a lista de produtos
+      const phone = '5511970420650';
+      const pixDiscountTotal = (total*0.9).toFixed(2);
+      let msg = `Olá, quero finalizar meu pedido na NexarStore.%0A`;
+      cart.forEach(it=>{msg += `${it.qty}x ${it.name} - R$ ${ (it.price*it.qty).toFixed(2) }%0A`});
+      msg += `%0ATotal: R$ ${total.toFixed(2)}%0A`;msg += `PIX (10% OFF): R$ ${pixDiscountTotal}%0A`;
+      const url = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
+      document.getElementById('checkoutWhatsApp').setAttribute('href',url);
+    }
+    function increaseQty(id){ const it = cart.find(i=>i.id===id); if(it){it.qty++; saveCart()} }
+    function decreaseQty(id){ const it = cart.find(i=>i.id===id); if(it){it.qty--; if(it.qty<=0) removeFromCart(id); else saveCart()} }
+
+    /* ===== Abrir/fechar carrinho ===== */
+    const cartSidebar = document.getElementById('cartSidebar');
+    document.getElementById('openCartBtn').addEventListener('click',openCart);
+    document.getElementById('closeCart').addEventListener('click',closeCart);
+    function openCart(){cartSidebar.classList.add('open');cartSidebar.setAttribute('aria-hidden','false');updateCartUI();document.body.style.overflow='hidden'}
+    function closeCart(){cartSidebar.classList.remove('open');cartSidebar.setAttribute('aria-hidden','true');document.body.style.overflow='auto'}
+
+    /* ===== Contact form (simples) ===== */
+    document.getElementById('contactForm').addEventListener('submit',e=>{e.preventDefault();alert('Mensagem recebida — responderemos em breve via email/WhatsApp.');e.target.reset()})
+
+    /* ===== Autenticação e Meus Pedidos ===== */
+    const authModal = document.getElementById('authModal');
+    document.getElementById('accountBtn').addEventListener('click',()=>{authModal.classList.add('open');authModal.setAttribute('aria-hidden','false')});
+    document.getElementById('ordersBtn').addEventListener('click',()=>{showOrdersSection()});
+
+    // Usuário atual (objeto {id,email})
+    let currentUser = JSON.parse(localStorage.getItem('nexar_user')||'null');
+
+    // Se usar Firebase, atualizamos currentUser quando logado
+    if(useFirebase){
+      auth.onAuthStateChanged(u=>{
+        if(u) currentUser = {id:u.uid,email:u.email}; else currentUser = null;
+        localStorage.setItem('nexar_user', JSON.stringify(currentUser));
+      });
+    }
+
+    document.getElementById('authForm').addEventListener('submit',async e=>{
+      e.preventDefault();
+      const email = e.target.email.value.trim();
+      const pass = e.target.pass.value;
+
+      if(useFirebase){
+        try{
+          // tenta login, se falhar cria conta
+          await auth.signInWithEmailAndPassword(email,pass);
+          alert('Login efetuado com sucesso!');
+          authModal.classList.remove('open');
+        }catch(err){
+          try{ await auth.createUserWithEmailAndPassword(email,pass); alert('Conta criada e logado!'); authModal.classList.remove('open'); }
+          catch(e){ alert('Erro no login/registro: '+e.message) }
         }
-
-        function closeNav() {
-            document.getElementById("cartSidebar").classList.remove("open");
-            document.body.style.overflow = 'auto';
+      } else {
+        // Fallback localStorage (funcional mas inseguro). Cria conta se não existir.
+        let users = JSON.parse(localStorage.getItem('nexar_users')||'{}');
+        if(users[email]){
+          if(users[email].pass === pass){ currentUser = {id:users[email].id,email}; localStorage.setItem('nexar_user',JSON.stringify(currentUser)); alert('Login efetuado!'); authModal.classList.remove('open'); }
+          else alert('Senha incorreta.');
+        } else {
+          const id = 'u_'+Date.now(); users[email] = {id,pass}; localStorage.setItem('nexar_users',JSON.stringify(users)); currentUser = {id,email}; localStorage.setItem('nexar_user',JSON.stringify(currentUser)); alert('Conta criada!'); authModal.classList.remove('open');
         }
+      }
+      updateOrdersUI();
+    });
 
-        // --- Funções de Lógica do Carrinho ---
-        function addToCart(buttonElement) {
-            const card = buttonElement.closest('.card');
-            const id = card.getAttribute('data-id');
-            const name = card.getAttribute('data-name');
-            const priceText = card.querySelector('.price').textContent.replace('R$ ', '').replace('.', '').replace(',', '.').trim();
-            const price = parseFloat(priceText);
-            const image = card.getAttribute('data-image');
+    // Salvar pedido (quando usuário finalizar compra via site)
+    // Aqui salvamos localmente e, se houver Firebase, também salvamos no Firestore.
+    async function saveOrder(order){
+      // order = {id, userId, items, total, date, paymentMethod}
+      // localStorage store
+      let all = JSON.parse(localStorage.getItem('nexar_orders')||'[]');
+      all.push(order); localStorage.setItem('nexar_orders',JSON.stringify(all));
+      if(useFirebase){
+        try{ await db.collection('orders').add(order); } catch(e){ console.warn('Erro salvando no Firestore',e) }
+      }
+    }
 
-            const existingItem = cart.find(item => item.id === id);
+    // Quando o usuário clicar em finalizar via WhatsApp, vamos salvar o pedido automaticamente para "Meus Pedidos"
+    document.getElementById('checkoutWhatsApp').addEventListener('click',async function(e){
+      // salvamos o pedido antes de redirecionar
+      if(cart.length===0){ e.preventDefault(); alert('Carrinho vazio.'); return }
+      const userId = currentUser ? currentUser.id : 'guest_'+Date.now();
+      const total = cart.reduce((s,i)=>s + i.price*i.qty,0);
+      const order = { id: 'ord_'+Date.now(), userId, items: cart, total, date: new Date().toISOString(), payment: 'PIX/WhatsApp' };
+      await saveOrder(order);
+      // limpar carrinho e atualizar UI
+      cart = []; saveCart();
+      // (o link do botão já é atualizado por updateCartUI para abrir o WhatsApp)
+      // permitir seguir com o click normal
+    });
 
-            if (existingItem) {
-                existingItem.quantity += 1;
-            } else {
-                cart.push({ id, name, price, image, quantity: 1 });
-            }
+    // Meus Pedidos UI
+    function showOrdersSection(){
+      document.getElementById('meusPedidosSection').style.display = 'block';
+      if(!currentUser){ alert('Acesse sua conta para ver seus pedidos.'); authModal.classList.add('open'); return }
+      updateOrdersUI();
+      window.scrollTo({top:document.getElementById('meusPedidosSection').offsetTop-80,behavior:'smooth'});
+    }
 
-            updateCartDisplay();
-            openNav(); 
-            alert(`"${name}" adicionado ao carrinho!`); 
-        }
-        
-        function removeFromCart(id) {
-            cart = cart.filter(item => item.id !== id);
-            updateCartDisplay();
-        }
+    async function fetchOrdersForUser(userId){
+      // retorna orders do localStorage filtradas por userId + (opcionalmente) Firestore
+      let local = JSON.parse(localStorage.getItem('nexar_orders')||'[]');
+      let userOrders = local.filter(o=>o.userId === userId);
+      if(useFirebase){
+        try{
+          // Certifique-se de que a coleção 'orders' exista no Firestore e que as regras de segurança permitam leitura
+          const snapshot = await db.collection('orders').where('userId','==',userId).get();
+          snapshot.forEach(doc=>{ const d = doc.data(); if(!userOrders.find(x=>x.id===d.id)) userOrders.push(d); });
+        }catch(e){ console.warn('Erro lendo pedidos Firestore',e) }
+      }
+      return userOrders.sort((a,b)=> new Date(b.date) - new Date(a.date));
+    }
 
-        function updateCartDisplay() {
-            const container = document.getElementById('cart-items-container');
-            const countSpan = document.getElementById('cart-count');
-            const subtotalSpan = document.getElementById('cart-subtotal');
-            const totalSpan = document.getElementById('cart-total');
-            const pixDiscountSpan = document.getElementById('pix-discount');
-            const emptyMessage = document.getElementById('empty-cart-message');
-            
-            container.innerHTML = '';
-            
-            if (cart.length === 0) {
-                countSpan.style.display = 'none';
-                emptyMessage.style.display = 'block'; 
-                container.appendChild(emptyMessage);
-            } else {
-                emptyMessage.style.display = 'none';
-                
-                let subtotal = 0;
-                
-                cart.forEach(item => {
-                    subtotal += item.price * item.quantity;
-                    
-                    const itemElement = document.createElement('div');
-                    itemElement.classList.add('cart-item');
-                    
-                    const imgPlaceholder = `
-                        <img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22100%25%22%20height%3D%22100%25%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23555%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22Inter%2C%20sans-serif%22%20font-size%3D%228%22%20fill%3D%22%23CCC%22%3E${item.name.substring(0, 10)}%3C%2Ftext%3E%3C%2Fsvg%3E" alt="${item.name}">
-                    `;
+    async function updateOrdersUI(){
+      const area = document.getElementById('ordersArea'); area.innerHTML = '';
+      if(!currentUser){ area.innerHTML = '<p class="muted">Faça login para ver seus pedidos.</p>'; return }
+      const orders = await fetchOrdersForUser(currentUser.id);
+      if(orders.length===0){ area.innerHTML = '<p class="muted">Nenhum pedido encontrado.</p>'; return }
+      const list = document.createElement('div'); list.className='orders-list';
+      orders.forEach(o=>{
+        const card = document.createElement('div'); card.className='order-card';
+        card.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center"><strong>Pedido ${o.id}</strong><small style=\"color:var(--muted)\">${new Date(o.date).toLocaleString()}</small></div>`;
+        const itemsHtml = o.items.map(it=>`<div style="display:flex;justify-content:space-between;margin-top:8px"><div>${it.qty}x ${it.name}</div><div>${formatBRL(it.price*it.qty)}</div></div>`).join('');
+        card.innerHTML += itemsHtml + `<div style=\"margin-top:10px;display:flex;justify-content:space-between;align-items:center\"><strong>Total</strong><strong>${formatBRL(o.total)}</strong></div>`;
+        list.appendChild(card);
+      });
+      area.appendChild(list);
+    }
 
-                    itemElement.innerHTML = `
-                        ${imgPlaceholder}
-                        <div class="item-details">
-                            <p><strong>${item.name}</strong></p>
-                            <p>Qtde: ${item.quantity} | R$ ${(item.price * item.quantity).toFixed(2).replace('.', ',')}</p>
-                        </div>
-                        <i class="fa-solid fa-trash" style="color: ${getComputedStyle(document.documentElement).getPropertyValue('--vermelho-erro')}; cursor: pointer;" onclick="removeFromCart('${item.id}')"></i>
-                    `;
-                    container.appendChild(itemElement);
-                });
+    /* ===== Utils & Inicialização ===== */
+    function viewDetails(id){const p = PRODUCTS.find(x=>x.id===id);alert(`${p.name}
+Preço: ${formatBRL(p.price)}`)}
+    updateCartUI();
 
-                const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-                countSpan.textContent = totalItems;
-                countSpan.style.display = 'inline-block';
+    // Expor funções para botões inline
+    window.addToCart = addToCart; window.viewDetails = viewDetails; window.increaseQty = increaseQty; window.decreaseQty = decreaseQty; window.removeFromCart = removeFromCart;
 
-                const total = subtotal;
-                const pixDiscount = total * 0.90; 
-                
-                subtotalSpan.textContent = `R$ ${subtotal.toFixed(2).replace('.', ',')}`;
-                totalSpan.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
-                pixDiscountSpan.textContent = `R$ ${pixDiscount.toFixed(2).replace('.', ',')}`;
-            }
-        }
-        
-        // --- Função de Cópia PIX ---
-        function copyPixCode() {
-            const pixCode = document.getElementById('pix-code').innerText;
-            navigator.clipboard.writeText(pixCode).then(() => {
-                alert('Código PIX Copiado com sucesso!');
-            }).catch(err => {
-                console.error('Falha ao copiar o texto: ', err);
-                alert('Erro ao copiar o código. Por favor, copie manualmente.');
-            });
-        }
-        
-        updateCartDisplay();
+    // Se o usuário estiver logado (localStorage), atualiza pedidos
+    if(currentUser) updateOrdersUI();
 
-    </script>
+    // Instruções rápidas para o deploy / ativar Firebase:
+    // 1) Crie um projeto no https://console.firebase.google.com
+    // 2) Habilite Authentication -> Email/Password
+    // 3) Habilite Firestore Database (modo de teste ou regras adequadas)
+    // 4) Cole o objeto firebaseConfig na constante 'firebaseConfig' no topo deste arquivo
+    // 5) Recarregue. A autenticação e o armazenamento de pedidos passarão a ser reais e persistentes.
+
+    // Segurança: o fallback localStorage funciona para demonstração e lançamento rápido, mas não é seguro para dados sensíveis.
+  </script>
 </body>
 </html>
