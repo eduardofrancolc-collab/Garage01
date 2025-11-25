@@ -4,55 +4,72 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>NexarStore — Tecnologia Premium</title>
+
+  <!-- Fonts & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;800;900&family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
   <style>
     :root{
-      --bg:#000000; /* fundo preto conforme pedido */
-      --card:#0f1113;
-      --verde:#00C47A; /* acento verde original */
+      --bg:#000000;
+      --card:#0b0d0e;
+      --card-2:#0f1113;
+      --verde:#00C47A;
       --muted:#9aa4b2;
       --text:#ffffff;
       --glass: rgba(255,255,255,0.03);
+      --glass-2: rgba(255,255,255,0.025);
+      --radius:12px;
     }
     *{box-sizing:border-box}
     html,body{height:100%}
-    body{font-family:Inter,system-ui,Arial;color:var(--text);background:var(--bg);margin:0}
+    body{font-family:Inter,system-ui,Arial;color:var(--text);background:var(--bg);margin:0;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 
     /* Top bar */
-    header{background:linear-gradient(90deg,rgba(0,0,0,0.95),rgba(0,0,0,0.85));color:var(--text);padding:14px 18px;position:sticky;top:0;z-index:1200;border-bottom:3px solid var(--verde)}
-    .topbar{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:16px}
+    header{background:linear-gradient(90deg,rgba(0,0,0,0.98),rgba(0,0,0,0.92));color:var(--text);padding:12px 18px;position:sticky;top:0;z-index:1200;border-bottom:3px solid var(--verde)}
+    .topbar{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:14px}
     .logo{font-family:Poppins,Montserrat,Inter;font-weight:900;font-size:26px;letter-spacing:0.6px;color:var(--verde)}
-    .search{flex:1;display:flex;align-items:center;background:var(--glass);padding:8px;border-radius:10px;border:1px solid rgba(255,255,255,0.04)}
+    .search{flex:1;display:flex;align-items:center;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:8px;border-radius:12px;border:1px solid rgba(255,255,255,0.04)}
     .search input{flex:1;background:transparent;border:0;color:var(--text);padding:8px;font-size:14px;outline:none}
-    .search button{background:var(--verde);border:0;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:700}
+    .search button{background:var(--verde);border:0;padding:8px 12px;border-radius:10px;cursor:pointer;font-weight:700}
     .nav-actions{display:flex;align-items:center;gap:12px}
-    .icon-btn{background:transparent;border:0;color:var(--text);font-size:18px;cursor:pointer;position:relative}
-    .badge{position:absolute;top:-6px;right:-6px;background:#ff4d4d;color:#fff;border-radius:50%;padding:2px 6px;font-size:12px}
+    .icon-btn{background:transparent;border:0;color:var(--text);font-size:18px;cursor:pointer;position:relative;padding:8px;border-radius:8px}
+    .icon-btn:hover{background:var(--glass-2)}
+    .badge{position:absolute;top:6px;right:6px;background:#ff4d4d;color:#fff;border-radius:50%;padding:2px 6px;font-size:12px}
 
-    /* Hero */
+    /* Main layout */
     main{max-width:1200px;margin:18px auto;padding:0 18px}
-    .hero{margin:24px 0;padding:28px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);border-radius:12px;display:flex;gap:20px;align-items:center}
-    .hero-left{flex:1}
+    .hero{margin:20px 0;padding:12px;border-radius:var(--radius);display:flex;gap:20px;align-items:center;background:linear-gradient(180deg, rgba(0,0,0,0.75), rgba(0,0,0,0.7)); overflow:hidden}
+    .hero-left{flex:1;padding:20px}
     .hero h1{font-family:Poppins;font-size:34px;margin:0 0 6px;color:var(--verde)}
     .hero p{color:var(--muted);margin:0 0 12px}
-    .hero .cta{display:inline-block;background:var(--verde);color:#000;padding:12px 18px;border-radius:10px;font-weight:800;text-decoration:none}
-    .hero-right{width:320px}
-    .hero-right img{width:100%;border-radius:10px;display:block}
+    .hero .cta{display:inline-block;background:var(--verde);color:#000;padding:12px 18px;border-radius:12px;font-weight:800;text-decoration:none;box-shadow:0 8px 24px rgba(0,0,0,0.6)}
+    .hero-right{width:520px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+    .hero-right img{width:100%;height:220px;object-fit:cover;border-radius:10px;display:block;box-shadow:0 20px 60px rgba(0,0,0,0.7)}
 
-    /* Section headers */
-    .section-title{color:var(--verde);font-weight:800;margin:18px 0 8px}
+    /* Layout with sidebar filters */
+    .layout{display:grid;grid-template-columns:300px 1fr;gap:18px}
+    @media (max-width:1000px){ .layout{grid-template-columns:1fr} }
+
+    /* Filters sidebar */
+    .filters{background:var(--card);padding:16px;border-radius:var(--radius);border:1px solid rgba(255,255,255,0.03)}
+    .filters h3{margin:0 0 10px;color:var(--verde);font-weight:800}
+    .filters label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+    .filters select, .filters input[type="number"]{width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text);margin-bottom:10px}
+    .filters .actions{display:flex;gap:8px}
 
     /* Grid */
     .products{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
-    .product{background:var(--card);padding:12px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.03);display:flex;flex-direction:column}
-    .product img{width:100%;height:160px;object-fit:cover;border-radius:8px;background:#222}
-    .product h3{font-size:16px;margin:10px 0 6px}
+    .product{background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);padding:12px;border-radius:12px;box-shadow:0 12px 28px rgba(0,0,0,0.7);border:1px solid rgba(255,255,255,0.03);display:flex;flex-direction:column;transition:transform .15s, box-shadow .2s}
+    .product:hover{transform:translateY(-8px);box-shadow:0 20px 40px rgba(0,0,0,0.75)}
+    .product img{width:100%;height:160px;object-fit:cover;border-radius:10px;background:#111}
+    .product h3{font-size:16px;margin:10px 0 6px;color:#fff}
+    .meta{color:var(--muted);font-size:13px;margin-bottom:6px}
     .price-row{display:flex;justify-content:space-between;align-items:center;gap:8px}
     .price{font-weight:900;color:var(--verde)}
     .actions{margin-top:10px;display:flex;gap:8px}
-    .btn-ghost{flex:1;padding:10px;border-radius:8px;border:1px dashed rgba(255,255,255,0.04);background:transparent;cursor:pointer;color:var(--text)}
-    .btn-primary{flex:1;padding:10px;border-radius:8px;border:0;background:var(--verde);color:#000;cursor:pointer;font-weight:700}
+    .btn-ghost{flex:1;padding:10px;border-radius:10px;border:1px dashed rgba(255,255,255,0.04);background:transparent;cursor:pointer;color:var(--text)}
+    .btn-primary{flex:1;padding:10px;border-radius:10px;border:0;background:var(--verde);color:#000;cursor:pointer;font-weight:800}
 
     /* Footer */
     footer{background:#070707;color:var(--text);padding:28px 18px;margin-top:30px;border-top:1px solid rgba(255,255,255,0.03)}
@@ -62,27 +79,27 @@
     .muted{color:var(--muted);font-size:14px}
 
     /* Cart sidebar */
-    .cart-sidebar{position:fixed;right:0;top:0;height:100vh;width:0;overflow:hidden;background:var(--card);color:var(--text);transition:width .35s ease;z-index:1300;border-left:4px solid var(--verde)}
+    .cart-sidebar{position:fixed;right:0;top:0;height:100vh;width:0;overflow:hidden;background:var(--card-2);color:var(--text);transition:width .35s ease;z-index:1300;border-left:4px solid var(--verde)}
     .cart-sidebar.open{width:420px;box-shadow:-8px 0 40px rgba(0,0,0,0.6)}
     .cart-inner{padding:20px;height:100%;display:flex;flex-direction:column}
     .cart-list{flex:1;overflow:auto;margin-top:16px}
-    .cart-item{display:flex;gap:12px;align-items:center;padding:8px 0;border-bottom:1px solid rgba(0,0,0,0.2)}
+    .cart-item{display:flex;gap:12px;align-items:center;padding:8px 0;border-bottom:1px solid rgba(0,0,0,0.12)}
     .cart-item img{width:64px;height:64px;object-fit:cover;border-radius:8px}
     .cart-footer{padding-top:12px}
     .whatsapp-btn{display:block;background:#25d366;color:#fff;padding:12px;border-radius:10px;text-align:center;text-decoration:none;font-weight:800}
 
-    /* Auth modal */
+    /* Modal */
     .modal{position:fixed;left:0;top:0;width:100%;height:100%;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);z-index:1400}
     .modal.open{display:flex}
-    .modal-card{background:var(--card);padding:20px;border-radius:12px;max-width:420px;width:100%;color:var(--text)}
+    .modal-card{background:var(--card-2);padding:20px;border-radius:12px;max-width:420px;width:100%;color:var(--text)}
 
-    /* Meus Pedidos */
+    /* Orders */
     .orders-list{display:grid;gap:12px}
     .order-card{background:#0b0c0d;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)}
 
     /* Responsive tweaks */
     @media (max-width:720px){
-      .hero{flex-direction:column}
+      .hero{flex-direction:column;padding:16px}
       .hero-right{width:100%}
       .cart-sidebar.open{width:100%}
       .logo{font-size:22px}
@@ -93,10 +110,12 @@
   <header>
     <div class="topbar">
       <div class="logo">NexarStore</div>
+
       <div class="search" role="search" aria-label="Pesquisar produtos">
         <input id="searchInput" placeholder="Buscar iPhone, notebook, fone..." aria-label="Campo de busca">
-        <button id="searchBtn">Buscar</button>
+        <button id="searchBtn" title="Buscar">Buscar</button>
       </div>
+
       <div class="nav-actions">
         <button class="icon-btn" id="accountBtn" title="Minha Conta"><i class="fa-regular fa-user"></i></button>
         <button class="icon-btn" id="ordersBtn" title="Meus Pedidos">Meus Pedidos</button>
@@ -106,26 +125,73 @@
   </header>
 
   <main>
-    <section class="hero">
+    <section class="hero" aria-hidden="false">
       <div class="hero-left">
         <h1>Ofertas incríveis em tecnologia</h1>
-        <p>Produtos selecionados, garantia e suporte. Frete rápido e opção de pagamento via PIX com desconto.</p>
+        <p>Produtos selecionados, garantia e suporte. Frete rápido e pagamento seguro — 10% OFF no PIX.</p>
         <a class="cta" href="#produtos">Ver ofertas</a>
       </div>
       <div class="hero-right">
-        <img src="https://raw.githubusercontent.com/eduardofrancolc-collab/Nexar-Store/main/loja%20imag.png" alt="Banner de tecnologia" />
+        <!-- banner local (arquivo enviado) -->
+        <img id="heroBanner" src="/mnt/data/ChatGPT Image 25 de nov. de 2025, 02_09_06.png" alt="Banner de tecnologia" />
       </div>
     </section>
 
     <section id="produtos" style="margin-top:6px">
-      <div class="section-title">Destaques</div>
-      <div class="products" id="productsGrid"></div>
+      <div class="section-title" style="color:var(--verde);font-weight:800;margin:18px 0 8px">Destaques</div>
+
+      <div class="layout" style="margin-bottom:28px">
+        <!-- Filters -->
+        <aside class="filters" id="filtersPanel" aria-label="Filtros de produtos">
+          <h3>Filtros</h3>
+
+          <label>Categoria</label>
+          <select id="filterCategory">
+            <!-- preenchido dinamicamente -->
+          </select>
+
+          <label>Marca</label>
+          <select id="filterBrand"><option value="">Todas</option></select>
+
+          <label>Armazenamento</label>
+          <select id="filterStorage"><option value="">Todos</option></select>
+
+          <label>Cor</label>
+          <select id="filterColor"><option value="">Todas</option></select>
+
+          <label style="margin-top:6px">Faixa de preço (R$)</label>
+          <div style="display:flex;gap:8px">
+            <input id="filterPriceMin" type="number" placeholder="Mín." />
+            <input id="filterPriceMax" type="number" placeholder="Máx." />
+          </div>
+
+          <div class="actions" style="margin-top:10px">
+            <button id="applyFilters" class="btn-primary" style="flex:1">Aplicar</button>
+            <button id="clearFilters" class="btn-ghost" style="flex:1">Limpar</button>
+          </div>
+
+          <div style="margin-top:12px;color:var(--muted);font-size:13px">
+            Dica: combine filtros para resultados melhores. Para busca full-text use Algolia (opcional).
+          </div>
+        </aside>
+
+        <!-- Products grid -->
+        <div>
+          <div id="productsGrid" class="products" aria-live="polite">
+            <!-- cards preenchidos dinamicamente -->
+          </div>
+
+          <div style="margin-top:14px;text-align:center">
+            <button id="loadMoreBtn" class="btn-ghost" style="display:none">Carregar mais</button>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section style="margin-top:22px">
       <div class="section-title">Sobre</div>
       <div style="background:var(--card);padding:18px;border-radius:12px;">
-        <p class="muted">NexarStore é uma loja virtual focada em celulares, notebooks e acessórios. Atendimento via WhatsApp e envio rápido para todo Brasil.</p>
+        <p class="muted">NexarStore é uma loja virtual focada em celulares, notebooks, PCs gamer, periféricos e acessórios. Atendimento via WhatsApp e envio rápido para todo Brasil.</p>
       </div>
     </section>
 
@@ -134,14 +200,14 @@
         <div style="background:var(--card);padding:18px;border-radius:12px;">
           <form id="contactForm">
             <label>Nome <input type="text" name="name" required style="width:100%;padding:8px;margin-top:6px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text)"></label>
-            <label style="display:block;margin-top:10px">E‑mail <input type="email" name="email" required style="width:100%;padding:8px;margin-top:6px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text)"></label>
+            <label style="display:block;margin-top:10px">E-mail <input type="email" name="email" required style="width:100%;padding:8px;margin-top:6px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text)"></label>
             <label style="display:block;margin-top:10px">Mensagem <textarea name="msg" required style="width:100%;padding:8px;margin-top:6px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text);min-height:120px"></textarea></label>
             <div style="margin-top:10px;text-align:right"><button type="submit" style="background:var(--verde);color:#000;padding:10px 14px;border-radius:8px;border:0;">Enviar Mensagem</button></div>
           </form>
         </div>
         <div style="background:var(--card);padding:18px;border-radius:12px;">
           <h4>Atendimento</h4>
-          <p class="muted">Whatsapp: <a href="https://wa.me/5511970420650" target="_blank">+55 11 97042-0650</a></p>
+          <p class="muted">Whatsapp: <a href="https://wa.me/5511970420650" target="_blank" style="color:var(--verde)">+55 11 97042-0650</a></p>
           <p class="muted">Email: nexarstore@gmail.com</p>
         </div>
       </div>
@@ -159,6 +225,7 @@
 
   </main>
 
+  <!-- Cart sidebar -->
   <aside id="cartSidebar" class="cart-sidebar" aria-hidden="true">
     <div class="cart-inner">
       <div style="display:flex;justify-content:space-between;align-items:center">
@@ -169,13 +236,14 @@
         <p class="muted">Carrinho vazio. Adicione produtos.</p>
       </div>
       <div class="cart-footer">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><strong>Total</strong><strong id="cartTotal">R$ 0,00</strong></div>
-        <a id="checkoutWhatsApp" class="whatsapp-btn" href="#">Finalizar via WhatsApp</a>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><strong>Subtotal</strong><strong id="cartTotal">R$ 0,00</strong></div>
+        <a id="checkoutWhatsApp" class="whatsapp-btn" href="#" target="_blank">Finalizar via WhatsApp</a>
         <div style="margin-top:8px;text-align:center;color:var(--muted);font-size:13px">10% OFF no PIX</div>
       </div>
     </div>
   </aside>
 
+  <!-- Auth modal -->
   <div class="modal" id="authModal" aria-hidden="true">
     <div class="modal-card">
       <h3>Entrar / Criar Conta</h3>
@@ -183,7 +251,7 @@
         <label>Email <input name="email" type="email" required style="width:100%;padding:8px;margin-top:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text)"></label>
         <label style="display:block;margin-top:8px">Senha <input name="pass" type="password" required style="width:100%;padding:8px;margin-top:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text)"></label>
         <div style="margin-top:12px;text-align:right"><button type="submit" style="background:var(--verde);color:#000;padding:8px 12px;border-radius:8px;border:0">Entrar / Criar</button></div>
-        <div style="margin-top:10px;color:var(--muted);font-size:13px">Preferência: Faça login para salvar e visualizar seus pedidos.</div>
+        <div style="margin-top:10px;color:var(--muted);font-size:13px">Faça login para salvar e visualizar seus pedidos.</div>
       </form>
     </div>
   </div>
@@ -206,16 +274,14 @@
     </div>
   </footer>
 
-  <!-- SDKs do Firebase (Versões compat) -->
+  <!-- Firebase compat SDKs (mantive compat para facilitar) -->
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
-  <!-- Adicionado o SDK do Analytics compat -->
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-analytics-compat.js"></script>
 
   <script>
-    /* ===== Configurações Firebase ===== */
-    // Seu objeto firebaseConfig, copiado do console do Firebase!
+    /***** CONFIGURAÇÃO FIREBASE (mantenha seu objeto firebaseConfig) *****/
     const firebaseConfig = {
       apiKey: "AIzaSyBCpwBVdyQeK4V2d3oTAoHXl3WJzS8maKM",
       authDomain: "nexarstore-810a6.firebaseapp.com",
@@ -223,244 +289,495 @@
       storageBucket: "nexarstore-810a6.firebasestorage.app",
       messagingSenderId: "592156805210",
       appId: "1:592156805210:web:9c25585b68516d06ac3063",
-      measurementId: "G-9K37F5QX0N" // Seu ID do Google Analytics
+      measurementId: "G-9K37F5QX0N"
     };
 
     let useFirebase = false;
-    if (firebaseConfig) {
-      try {
-        // Inicialize o Firebase com suas configurações
-        const app = firebase.initializeApp(firebaseConfig);
-
-        // Obtenha as instâncias dos serviços de Autenticação e Firestore
-        window.auth = firebase.auth();
-        window.db = firebase.firestore();
-
-        // Se o measurementId estiver presente e você quiser usar o Analytics, inicialize-o:
-        // window.analytics = firebase.analytics(); // Descomente esta linha se for usar o Analytics
-
-        useFirebase = true;
-        console.log('Firebase inicializado com sucesso!');
-      } catch (e) {
-        console.warn('Erro ao inicializar Firebase:', e);
-      }
+    try{
+      firebase.initializeApp(firebaseConfig);
+      window.auth = firebase.auth();
+      window.db = firebase.firestore();
+      // firebase.analytics(); // opcional
+      useFirebase = true;
+      console.log('Firebase inicializado.');
+    } catch(e){
+      console.warn('Firebase não inicializado:', e);
+      useFirebase = false;
     }
 
-    /* ===== Dados iniciais (produtos) ===== */
-    const PRODUCTS = [
-      {id:1,name:'iPhone 16 Pro Max',price:10000,image:'https://raw.githubusercontent.com/eduardofrancolc-collab/Nexar-Store/main/produto1.jpg'},
-      {id:2,name:'Samsung S25 Ultra',price:8000,image:'https://raw.githubusercontent.com/eduardofrancolc-collab/Nexar-Store/main/produto2.jpg'},
-      {id:3,name:'MacBook Pro M4',price:15000,image:'https://raw.githubusercontent.com/eduardofrancolc-collab/Nexar-Store/main/produto3.jpg'},
-      {id:4,name:'AirPods Pro 3',price:1200,image:'https://raw.githubusercontent.com/eduardofrancolc-collab/Nexar-Store/main/produto4.jpg'},
-      {id:5,name:'Apple Watch Series 10',price:3500,image:'https://raw.githubusercontent.com/eduardofrancolc-collab/Nexar-Store/main/produto5.jpg'}
+    /***** FALLBACK (dados locais de demo) *****/
+    // Ampliei a lista para cobrir múltiplos ramos de tecnologia.
+    const PRODUCTS_FALLBACK = [
+      // Celulares
+      {id:101, name:'iPhone 16 Pro Max 256GB', price:11999.90, image:'https://via.placeholder.com/600x400?text=iPhone+16+Pro+Max', brand:'Apple', storage:'256GB', color:'Titanium', categoryId:'smartphones'},
+      {id:102, name:'Samsung Galaxy S25 Ultra 512GB', price:8999.90, image:'https://via.placeholder.com/600x400?text=Samsung+S25+Ultra', brand:'Samsung', storage:'512GB', color:'Preto', categoryId:'smartphones'},
+      {id:103, name:'Xiaomi 14 Pro 256GB', price:3999.90, image:'https://via.placeholder.com/600x400?text=Xiaomi+14+Pro', brand:'Xiaomi', storage:'256GB', color:'Branco', categoryId:'smartphones'},
+
+      // Notebooks
+      {id:201, name:'MacBook Pro M4 16"', price:19999.00, image:'https://via.placeholder.com/600x400?text=MacBook+Pro+M4', brand:'Apple', storage:'1TB', color:'Cinza', categoryId:'notebooks'},
+      {id:202, name:'Dell XPS 15', price:12999.90, image:'https://via.placeholder.com/600x400?text=Dell+XPS+15', brand:'Dell', storage:'512GB', color:'Prata', categoryId:'notebooks'},
+      {id:203, name:'Asus Vivobook 14', price:3599.90, image:'https://via.placeholder.com/600x400?text=Asus+Vivobook', brand:'Asus', storage:'256GB', color:'Preto', categoryId:'notebooks'},
+
+      // PCs Gamer
+      {id:301, name:'Gaming PC RTX 4090 - Full', price:27999.90, image:'https://via.placeholder.com/600x400?text=PC+Gamer+RTX+4090', brand:'Custom', storage:'2TB', color:'Preto', categoryId:'pc-gamer'},
+      {id:302, name:'Setup Gamer Ryzen 7 + RTX 4080', price:18999.90, image:'https://via.placeholder.com/600x400?text=Ryzen+7+%2B+RTX+4080', brand:'Custom', storage:'1TB', color:'Preto', categoryId:'pc-gamer'},
+
+      // PCs Escritório
+      {id:401, name:'PC Office i5 16GB SSD 512GB', price:3499.90, image:'https://via.placeholder.com/600x400?text=PC+Office+i5', brand:'HP', storage:'512GB', color:'Preto', categoryId:'pc-escritorio'},
+      {id:402, name:'All-in-One Intel Core i3', price:2999.90, image:'https://via.placeholder.com/600x400?text=All-in-One+i3', brand:'Lenovo', storage:'256GB', color:'Branco', categoryId:'pc-escritorio'},
+
+      // Tablets
+      {id:501, name:'iPad Air 5 256GB', price:4899.90, image:'https://via.placeholder.com/600x400?text=iPad+Air', brand:'Apple', storage:'256GB', color:'Prata', categoryId:'tablets'},
+      {id:502, name:'Samsung Galaxy Tab S9', price:3999.90, image:'https://via.placeholder.com/600x400?text=Galaxy+Tab+S9', brand:'Samsung', storage:'256GB', color:'Preto', categoryId:'tablets'},
+
+      // Monitores
+      {id:601, name:'Monitor 27" 144Hz IPS', price:1299.90, image:'https://via.placeholder.com/600x400?text=Monitor+27', brand:'AOC', storage:'—', color:'Preto', categoryId:'monitores'},
+      {id:602, name:'Monitor Ultrawide 34" 144Hz', price:3999.90, image:'https://via.placeholder.com/600x400?text=Ultrawide+34', brand:'LG', storage:'—', color:'Preto', categoryId:'monitores'},
+
+      // Periféricos
+      {id:701, name:'Teclado Mecânico RGB', price:399.90, image:'https://via.placeholder.com/600x400?text=Teclado+Mecânico', brand:'HyperX', storage:'—', color:'Preto', categoryId:'perifericos'},
+      {id:702, name:'Mouse Gamer 16000 DPI', price:249.90, image:'https://via.placeholder.com/600x400?text=Mouse+Gamer', brand:'Logitech', storage:'—', color:'Preto', categoryId:'perifericos'},
+      {id:703, name:'Headset Gamer Wireless', price:699.90, image:'https://via.placeholder.com/600x400?text=Headset+Gamer', brand:'Razer', storage:'—', color:'Preto', categoryId:'perifericos'},
+
+      // Acessórios
+      {id:801, name:'Power Bank 20000mAh', price:199.90, image:'https://via.placeholder.com/600x400?text=PowerBank', brand:'Baseus', storage:'—', color:'Preto', categoryId:'acessorios'},
+      {id:802, name:'Carregador USB-C 65W', price:129.90, image:'https://via.placeholder.com/600x400?text=Carregador+65W', brand:'Anker', storage:'—', color:'Branco', categoryId:'acessorios'},
+      {id:803, name:'Cabo USB-C 1.5m', price:49.90, image:'https://via.placeholder.com/600x400?text=Cabo+USB-C', brand:'Baseus', storage:'—', color:'Preto', categoryId:'acessorios'},
+
+      // Smartwatches
+      {id:901, name:'Apple Watch Series 10 45mm', price:3599.90, image:'https://via.placeholder.com/600x400?text=Apple+Watch+10', brand:'Apple', storage:'—', color:'Preto', categoryId:'smartwatches'},
+      {id:902, name:'Galaxy Watch 7 44mm', price:1899.90, image:'https://via.placeholder.com/600x400?text=Galaxy+Watch+7', brand:'Samsung', storage:'—', color:'Preto', categoryId:'smartwatches'}
     ];
 
-    /* ===== Render de produtos ===== */
+    /***** ESTADO LOCAL *****/
     const grid = document.getElementById('productsGrid');
-    function formatBRL(v){return 'R$ '+v.toFixed(2).replace('.',',')}
-    function renderProducts(list){
-      grid.innerHTML='';
-      list.forEach(p=>{
-        const card = document.createElement('div');card.className='product';
-        card.innerHTML = `
-          <img src="${p.image}" alt="${p.name}">
-          <h3>${p.name}</h3>
-          <div class="price-row"><div class="price">${formatBRL(p.price)}</div></div>
-          <div class="actions">
-            <button class="btn-ghost" onclick="viewDetails(${p.id})">Detalhes</button>
-            <button class="btn-primary" onclick="addToCart(${p.id})">Adicionar</button>
-          </div>`;
-        grid.appendChild(card);
-      });
-    }
-    renderProducts(PRODUCTS);
-
-    /* ===== Busca simples ===== */
-    document.getElementById('searchBtn').addEventListener('click',()=>{
-      const q=document.getElementById('searchInput').value.trim().toLowerCase();
-      if(!q){renderProducts(PRODUCTS);return}
-      renderProducts(PRODUCTS.filter(p=>p.name.toLowerCase().includes(q)));
-    })
-
-    /* ===== Carrinho ===== */
-    let cart = JSON.parse(localStorage.getItem('nexar_cart')||'[]');
     const cartList = document.getElementById('cartList');
     const cartTotalEl = document.getElementById('cartTotal');
     const cartBadge = document.getElementById('cartBadge');
 
-    function saveCart(){localStorage.setItem('nexar_cart',JSON.stringify(cart));updateCartUI()}
-    function addToCart(id){
-      const p = PRODUCTS.find(x=>x.id===id);if(!p)return;const found = cart.find(i=>i.id===id);
-      if(found) found.qty++; else cart.push({id:p.id,name:p.name,price:p.price,image:p.image,qty:1});
-      saveCart();openCart();
+    let productsCache = []; // cache local dos produtos carregados
+    let lastSnapshot = null; // para paginação
+    let currentFilters = { categoryId: 'all', brand: '', storage: '', color: '', priceMin: null, priceMax: null };
+    let cart = JSON.parse(localStorage.getItem('nexar_cart')||'[]');
+    let currentUser = JSON.parse(localStorage.getItem('nexar_user')||'null');
+
+    /***** HELPERS *****/
+    function formatBRL(v){ return 'R$ '+Number(v||0).toFixed(2).replace('.',',') }
+    function el(tag, attrs={}, html=''){ const e=document.createElement(tag); Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v)); if(html) e.innerHTML=html; return e }
+
+    /***** RENDER FUNCS *****/
+    function renderProducts(list){
+      grid.innerHTML='';
+      if(!list || list.length===0){
+        grid.innerHTML = '<div style="grid-column:1/-1;padding:18px;background:var(--card);border-radius:12px"><p class="muted">Nenhum produto encontrado.</p></div>';
+        return;
+      }
+      list.forEach(p=>{
+        const idKey = p.idFire || p.id;
+        const card = document.createElement('div'); card.className='product';
+        card.innerHTML = `
+          <img src="${(p.images && p.images[0]) || p.image || 'https://via.placeholder.com/400x300?text=Produto'}" alt="${p.title || p.name}">
+          <h3>${p.title || p.name}</h3>
+          <div class="meta">${p.brand || ''} • ${p.specs?.storage || p.storage || ''}</div>
+          <div class="price-row"><div class="price">${formatBRL(p.price)}</div></div>
+          <div class="actions">
+            <button class="btn-ghost" data-id="${idKey}" onclick="viewDetails('${idKey}')">Detalhes</button>
+            <button class="btn-primary" data-id="${idKey}" onclick="addToCart('${idKey}')">Adicionar</button>
+          </div>`;
+        grid.appendChild(card);
+      });
     }
-    function removeFromCart(id){cart = cart.filter(i=>i.id!==id);saveCart()}
+
+    /***** CATEGORIES + FILTERS LOADING *****/
+    const DEFAULT_CATEGORIES = [
+      {id:'all', name:'Todos'},
+      {id:'smartphones', name:'Smartphones'},
+      {id:'notebooks', name:'Notebooks'},
+      {id:'pc-gamer', name:'PC Gamer'},
+      {id:'pc-escritorio', name:'PC Escritório'},
+      {id:'tablets', name:'Tablets'},
+      {id:'monitores', name:'Monitores'},
+      {id:'perifericos', name:'Periféricos'},
+      {id:'acessorios', name:'Acessórios'},
+      {id:'smartwatches', name:'Smartwatches'}
+    ];
+
+    async function loadCategoriesAndFilters(){
+      const catSelect = document.getElementById('filterCategory');
+      catSelect.innerHTML = ''; // limpar
+
+      if(useFirebase){
+        try{
+          const catsSnap = await db.collection('categories').orderBy('order','asc').get();
+          if(!catsSnap.empty){
+            catsSnap.forEach(doc => {
+              const d = doc.data();
+              const opt = document.createElement('option'); opt.value = doc.id; opt.textContent = d.name || doc.id;
+              catSelect.appendChild(opt);
+            });
+          } else {
+            DEFAULT_CATEGORIES.forEach(c=> { const o=document.createElement('option'); o.value=c.id; o.textContent=c.name; catSelect.appendChild(o) });
+          }
+        } catch(e){
+          console.warn('Erro carregando categories:', e);
+          DEFAULT_CATEGORIES.forEach(c=> { const o=document.createElement('option'); o.value=c.id; o.textContent=c.name; catSelect.appendChild(o) });
+        }
+      } else {
+        DEFAULT_CATEGORIES.forEach(c=> { const o=document.createElement('option'); o.value=c.id; o.textContent=c.name; catSelect.appendChild(o) });
+      }
+
+      catSelect.addEventListener('change', async e => {
+        currentFilters.categoryId = e.target.value;
+        await loadFilterOptionsForCategory(currentFilters.categoryId);
+      });
+
+      // carregar inicialmente
+      const initialCat = catSelect.value || 'all';
+      currentFilters.categoryId = initialCat;
+      await loadFilterOptionsForCategory(initialCat);
+    }
+
+    async function loadFilterOptionsForCategory(categoryId){
+      const brandSel = document.getElementById('filterBrand');
+      const storageSel = document.getElementById('filterStorage');
+      const colorSel = document.getElementById('filterColor');
+      brandSel.innerHTML = '<option value="">Todas</option>';
+      storageSel.innerHTML = '<option value="">Todos</option>';
+      colorSel.innerHTML = '<option value="">Todas</option>';
+
+      if(useFirebase){
+        try{
+          const snap = await db.collection('filters').doc(categoryId).get();
+          if(snap.exists){
+            const data = snap.data();
+            (data.brand || []).forEach(b => { const o=document.createElement('option'); o.value=b; o.textContent=b; brandSel.appendChild(o) });
+            (data.storage || []).forEach(s => { const o=document.createElement('option'); o.value=s; o.textContent=s; storageSel.appendChild(o) });
+            (data.color || []).forEach(c => { const o=document.createElement('option'); o.value=c; o.textContent=c; colorSel.appendChild(o) });
+            return;
+          }
+        } catch(e){
+          console.warn('Erro loading filters doc:', e);
+        }
+      }
+
+      // fallback hard-coded
+      const fallback = {
+        'smartphones': { brand:['Apple','Samsung','Xiaomi'], storage:['128GB','256GB','512GB','1TB'], color:['Preto','Branco','Azul','Titanium'] },
+        'notebooks': { brand:['Apple','Dell','Asus','Lenovo'], storage:['256GB','512GB','1TB'], color:['Preto','Prata'] },
+        'pc-gamer': { brand:['Custom','Corsair','Dell'], storage:['1TB','2TB'], color:['Preto'] },
+        'pc-escritorio': { brand:['HP','Lenovo','Dell'], storage:['256GB','512GB'], color:['Preto','Branco'] },
+        'tablets': { brand:['Apple','Samsung'], storage:['128GB','256GB'], color:['Preto','Prata'] },
+        'monitores': { brand:['LG','AOC','Samsung'], storage:[], color:['Preto'] },
+        'perifericos': { brand:['Logitech','HyperX','Razer'], storage:[], color:['Preto'] },
+        'acessorios': { brand:['Anker','Baseus'], storage:[], color:['Preto','Branco'] },
+        'smartwatches': { brand:['Apple','Samsung'], storage:[], color:['Preto','Prata'] },
+        'all': { brand:['Apple','Samsung','Xiaomi','Dell','Asus','Lenovo','HP','Logitech','Razer','Anker','Baseus','Custom'], storage:['128GB','256GB','512GB','1TB','2TB'], color:['Preto','Branco','Prata','Azul','Titanium'] }
+      };
+      const opts = fallback[categoryId] || fallback['all'];
+      opts.brand.forEach(b => { const o=document.createElement('option'); o.value=b; o.textContent=b; brandSel.appendChild(o) });
+      opts.storage.forEach(s => { const o=document.createElement('option'); o.value=s; o.textContent=s; storageSel.appendChild(o) });
+      opts.color.forEach(c => { const o=document.createElement('option'); o.value=c; o.textContent=c; colorSel.appendChild(o) });
+    }
+
+    /***** FETCH PRODUCTS (Firestore or fallback) *****/
+    async function fetchProducts({ reset=true, pageSize=12 } = {}){
+      if(!useFirebase){
+        // fallback: filtrar array local
+        let list = PRODUCTS_FALLBACK.slice();
+        if(currentFilters.categoryId && currentFilters.categoryId !== 'all') {
+          list = list.filter(p => p.categoryId === currentFilters.categoryId);
+        }
+        if(currentFilters.brand) list = list.filter(p => (p.brand||'').toLowerCase() === currentFilters.brand.toLowerCase());
+        if(currentFilters.storage) list = list.filter(p => (p.storage||'').toLowerCase() === currentFilters.storage.toLowerCase());
+        if(currentFilters.color) list = list.filter(p => (p.color||'').toLowerCase() === currentFilters.color.toLowerCase());
+        if(currentFilters.priceMin != null) list = list.filter(p => Number(p.price) >= Number(currentFilters.priceMin));
+        if(currentFilters.priceMax != null) list = list.filter(p => Number(p.price) <= Number(currentFilters.priceMax));
+        productsCache = list;
+        renderProducts(productsCache);
+        document.getElementById('loadMoreBtn').style.display = 'none';
+        return;
+      }
+
+      try{
+        let q = db.collection('products');
+        if(currentFilters.categoryId && currentFilters.categoryId !== 'all') q = q.where('categoryId','==', currentFilters.categoryId);
+
+        // Adiciona filtros simples
+        if(currentFilters.brand) q = q.where('filters.brand','==', currentFilters.brand);
+        if(currentFilters.storage) q = q.where('filters.storage','==', currentFilters.storage);
+        if(currentFilters.color) q = q.where('filters.color','==', currentFilters.color);
+        if(currentFilters.priceMin != null) q = q.where('price','>=', Number(currentFilters.priceMin));
+        if(currentFilters.priceMax != null) q = q.where('price','<=', Number(currentFilters.priceMax));
+
+        // ordene por createdAt desc ou por price se preferir
+        try { q = q.orderBy('createdAt','desc'); } catch(e) { /* ignore if no createdAt index */ }
+
+        if(!reset && lastSnapshot){
+          q = q.startAfter(lastSnapshot);
+        }
+
+        q = q.limit(pageSize);
+        const snap = await q.get();
+        const docs = snap.docs.map(d => ({ idFire:d.id, ...d.data() }));
+        if(reset){
+          productsCache = docs;
+        } else {
+          productsCache = productsCache.concat(docs);
+        }
+        renderProducts(productsCache);
+        lastSnapshot = snap.docs[snap.docs.length - 1] || null;
+        document.getElementById('loadMoreBtn').style.display = lastSnapshot ? 'inline-block' : 'none';
+      } catch(e){
+        console.error('Erro fetchProducts:', e);
+      }
+    }
+
+    /***** SEARCH (enter key and button) *****/
+    document.getElementById('searchBtn').addEventListener('click', doSearch);
+    document.getElementById('searchInput').addEventListener('keydown', function(e){ if(e.key === 'Enter') { e.preventDefault(); doSearch(); } });
+
+    async function doSearch(){
+      const q = document.getElementById('searchInput').value.trim();
+      if(!q){ await fetchProducts({reset:true}); return; }
+
+      if(!useFirebase){
+        const list = PRODUCTS_FALLBACK.filter(p => (p.name||p.title||'').toLowerCase().includes(q.toLowerCase()));
+        renderProducts(list);
+        return;
+      }
+
+      try{
+        // tentativa simples por título (prefix)
+        const q1 = db.collection('products').orderBy('title').startAt(q).endAt(q+'\uf8ff').limit(50);
+        const snap = await q1.get();
+        const docs = snap.docs.map(d => ({ idFire:d.id, ...d.data() }));
+        renderProducts(docs);
+      } catch(e){
+        console.warn('Erro pesquisa:', e);
+      }
+    }
+
+    /***** FILTERS UI HANDLERS *****/
+    document.getElementById('applyFilters').addEventListener('click', async ()=>{
+      currentFilters.brand = document.getElementById('filterBrand').value || '';
+      currentFilters.storage = document.getElementById('filterStorage').value || '';
+      currentFilters.color = document.getElementById('filterColor').value || '';
+      const pmin = document.getElementById('filterPriceMin').value;
+      const pmax = document.getElementById('filterPriceMax').value;
+      currentFilters.priceMin = pmin ? Number(pmin) : null;
+      currentFilters.priceMax = pmax ? Number(pmax) : null;
+
+      lastSnapshot = null;
+      await fetchProducts({ reset:true });
+      window.scrollTo({ top: document.getElementById('produtos').offsetTop - 80, behavior: 'smooth' });
+    });
+
+    document.getElementById('clearFilters').addEventListener('click', async ()=>{
+      document.getElementById('filterBrand').value = ''; document.getElementById('filterStorage').value = ''; document.getElementById('filterColor').value = '';
+      document.getElementById('filterPriceMin').value = ''; document.getElementById('filterPriceMax').value = '';
+      currentFilters.brand=''; currentFilters.storage=''; currentFilters.color=''; currentFilters.priceMin=null; currentFilters.priceMax=null;
+      lastSnapshot = null;
+      await fetchProducts({ reset:true });
+    });
+
+    document.getElementById('loadMoreBtn').addEventListener('click', ()=>fetchProducts({ reset:false }));
+
+    /***** CART (adapted) *****/
+    function saveCart(){ localStorage.setItem('nexar_cart', JSON.stringify(cart)); updateCartUI(); }
+    async function addToCart(id){
+      let p = productsCache.find(x => x.idFire == id || String(x.id) == String(id)) || PRODUCTS_FALLBACK.find(x=>String(x.id)===String(id));
+      if(!p && useFirebase){
+        try{
+          const doc = await db.collection('products').doc(id).get();
+          if(doc.exists) p = { idFire: doc.id, ...doc.data() };
+        } catch(e){ console.warn('Erro carregar produto:', e) }
+      }
+      if(!p) return alert('Produto não encontrado.');
+
+      const pid = p.idFire || p.id;
+      const found = cart.find(i => i.id === pid);
+      if(found) found.qty++;
+      else cart.push({ id: pid, name: p.title || p.name, price: Number(p.price || 0), image: (p.images?.[0] || p.image), qty:1 });
+      saveCart();
+      openCart();
+    }
+    function removeFromCart(id){ cart = cart.filter(i=>i.id!==id); saveCart(); }
+    function increaseQty(id){ const it = cart.find(i=>i.id===id); if(it){ it.qty++; saveCart(); } }
+    function decreaseQty(id){ const it = cart.find(i=>i.id===id); if(it){ it.qty--; if(it.qty<=0) removeFromCart(id); else saveCart(); } }
+
     function updateCartUI(){
       cartList.innerHTML='';
-      if(cart.length===0){cartList.innerHTML='<p class="muted">Carrinho vazio. Adicione produtos.</p>';cartBadge.style.display='none';cartTotalEl.textContent='R$ 0,00';return}
-      let total=0;cart.forEach(item=>{total += item.price*item.qty; const div=document.createElement('div');div.className='cart-item';div.innerHTML = `
-        <img src="${item.image}" alt="${item.name}">
-        <div style="flex:1">
-          <div style=\"font-weight:700\">${item.name}</div>
-          <div style=\"color:var(--muted);font-size:13px\">Qtde: ${item.qty} — ${formatBRL(item.price*item.qty)}</div>
-        </div>
-        <div style=\"display:flex;flex-direction:column;gap:6px\">
-          <button class=\"btn-ghost\" style=\"padding:6px 8px\" onclick=\"decreaseQty(${item.id})\">-</button>
-          <button class=\"btn-ghost\" style=\"padding:6px 8px\" onclick=\"increaseQty(${item.id})\">+</button>
-          <button class=\"btn-ghost\" style=\"padding:6px 8px;color:#ff4d4d\" onclick=\"removeFromCart(${item.id})\">Remover</button>
-        </div>`;cartList.appendChild(div);
+      if(cart.length===0){ cartList.innerHTML='<p class="muted">Carrinho vazio. Adicione produtos.</p>'; cartBadge.style.display='none'; cartTotalEl.textContent='R$ 0,00'; return }
+      let total=0;
+      cart.forEach(item=>{
+        total += item.price * item.qty;
+        const div = document.createElement('div'); div.className='cart-item';
+        div.innerHTML = `<img src="${item.image||'https://via.placeholder.com/120'}" alt="${item.name}">
+          <div style="flex:1">
+            <div style="font-weight:700">${item.name}</div>
+            <div style="color:var(--muted);font-size:13px">Qtde: ${item.qty} — ${formatBRL(item.price*item.qty)}</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <button class="btn-ghost" style="padding:6px 8px" onclick="decreaseQty('${item.id}')">-</button>
+            <button class="btn-ghost" style="padding:6px 8px" onclick="increaseQty('${item.id}')">+</button>
+            <button class="btn-ghost" style="padding:6px 8px;color:#ff4d4d" onclick="removeFromCart('${item.id}')">Remover</button>
+          </div>`;
+        cartList.appendChild(div);
       });
       const totalItems = cart.reduce((s,i)=>s+i.qty,0);
-      cartBadge.textContent = totalItems;cartBadge.style.display='inline-block';cartTotalEl.textContent = formatBRL(total);
-      // atualizar link de checkout via WhatsApp com a lista de produtos
+      cartBadge.textContent = totalItems; cartBadge.style.display='inline-block';
+      cartTotalEl.textContent = formatBRL(total);
+
+      // atualizar link de checkout via WhatsApp
       const phone = '5511970420650';
       const pixDiscountTotal = (total*0.9).toFixed(2);
       let msg = `Olá, quero finalizar meu pedido na NexarStore.%0A`;
-      cart.forEach(it=>{msg += `${it.qty}x ${it.name} - R$ ${ (it.price*it.qty).toFixed(2) }%0A`});
-      msg += `%0ATotal: R$ ${total.toFixed(2)}%0A`;msg += `PIX (10% OFF): R$ ${pixDiscountTotal}%0A`;
+      cart.forEach(it=>{ msg += `${it.qty}x ${it.name} - R$ ${(it.price*it.qty).toFixed(2)}%0A`; });
+      msg += `%0ATotal: R$ ${total.toFixed(2)}%0APIX (10% OFF): R$ ${pixDiscountTotal}%0A`;
       const url = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
-      document.getElementById('checkoutWhatsApp').setAttribute('href',url);
+      document.getElementById('checkoutWhatsApp').setAttribute('href', url);
     }
-    function increaseQty(id){ const it = cart.find(i=>i.id===id); if(it){it.qty++; saveCart()} }
-    function decreaseQty(id){ const it = cart.find(i=>i.id===id); if(it){it.qty--; if(it.qty<=0) removeFromCart(id); else saveCart()} }
 
-    /* ===== Abrir/fechar carrinho ===== */
+    /***** CART SIDEBAR handlers *****/
     const cartSidebar = document.getElementById('cartSidebar');
-    document.getElementById('openCartBtn').addEventListener('click',openCart);
-    document.getElementById('closeCart').addEventListener('click',closeCart);
-    function openCart(){cartSidebar.classList.add('open');cartSidebar.setAttribute('aria-hidden','false');updateCartUI();document.body.style.overflow='hidden'}
-    function closeCart(){cartSidebar.classList.remove('open');cartSidebar.setAttribute('aria-hidden','true');document.body.style.overflow='auto'}
+    document.getElementById('openCartBtn').addEventListener('click', openCart);
+    document.getElementById('closeCart').addEventListener('click', closeCart);
+    function openCart(){ cartSidebar.classList.add('open'); cartSidebar.setAttribute('aria-hidden','false'); updateCartUI(); document.body.style.overflow='hidden'; }
+    function closeCart(){ cartSidebar.classList.remove('open'); cartSidebar.setAttribute('aria-hidden','true'); document.body.style.overflow='auto'; }
 
-    /* ===== Contact form (simples) ===== */
-    document.getElementById('contactForm').addEventListener('submit',e=>{e.preventDefault();alert('Mensagem recebida — responderemos em breve via email/WhatsApp.');e.target.reset()})
+    /***** AUTH (login/create) *****/
+    document.getElementById('accountBtn').addEventListener('click', ()=>{ document.getElementById('authModal').classList.add('open'); document.getElementById('authModal').setAttribute('aria-hidden','false'); });
+    document.getElementById('ordersBtn').addEventListener('click', showOrdersSection);
 
-    /* ===== Autenticação e Meus Pedidos ===== */
-    const authModal = document.getElementById('authModal');
-    document.getElementById('accountBtn').addEventListener('click',()=>{authModal.classList.add('open');authModal.setAttribute('aria-hidden','false')});
-    document.getElementById('ordersBtn').addEventListener('click',()=>{showOrdersSection()});
-
-    // Usuário atual (objeto {id,email})
-    let currentUser = JSON.parse(localStorage.getItem('nexar_user')||'null');
-
-    // Se usar Firebase, atualizamos currentUser quando logado
     if(useFirebase){
-      auth.onAuthStateChanged(u=>{
-        if(u) currentUser = {id:u.uid,email:u.email}; else currentUser = null;
-        localStorage.setItem('nexar_user', JSON.stringify(currentUser));
+      auth.onAuthStateChanged(u => {
+        if(u){ currentUser = { id: u.uid, email: u.email }; localStorage.setItem('nexar_user', JSON.stringify(currentUser)); }
+        else { currentUser = null; localStorage.removeItem('nexar_user'); }
+        updateOrdersUI();
       });
     }
 
-    document.getElementById('authForm').addEventListener('submit',async e=>{
+    document.getElementById('authForm').addEventListener('submit', async e=>{
       e.preventDefault();
       const email = e.target.email.value.trim();
       const pass = e.target.pass.value;
-
+      if(!email || !pass) return alert('Preencha email e senha.');
       if(useFirebase){
         try{
-          // tenta login, se falhar cria conta
-          await auth.signInWithEmailAndPassword(email,pass);
-          alert('Login efetuado com sucesso!');
-          authModal.classList.remove('open');
-        }catch(err){
-          try{ await auth.createUserWithEmailAndPassword(email,pass); alert('Conta criada e logado!'); authModal.classList.remove('open'); }
-          catch(e){ alert('Erro no login/registro: '+e.message) }
+          await auth.signInWithEmailAndPassword(email, pass);
+          alert('Login efetuado!');
+          document.getElementById('authModal').classList.remove('open');
+        } catch(err){
+          // tentar criar conta
+          try{
+            await auth.createUserWithEmailAndPassword(email, pass);
+            alert('Conta criada e logado!');
+            document.getElementById('authModal').classList.remove('open');
+          } catch(e){
+            alert('Erro no login/registro: ' + (e.message || e));
+          }
         }
       } else {
-        // Fallback localStorage (funcional mas inseguro). Cria conta se não existir.
+        // fallback localStorage
         let users = JSON.parse(localStorage.getItem('nexar_users')||'{}');
         if(users[email]){
-          if(users[email].pass === pass){ currentUser = {id:users[email].id,email}; localStorage.setItem('nexar_user',JSON.stringify(currentUser)); alert('Login efetuado!'); authModal.classList.remove('open'); }
+          if(users[email].pass === pass){ currentUser = {id:users[email].id,email}; localStorage.setItem('nexar_user',JSON.stringify(currentUser)); alert('Login efetuado!'); document.getElementById('authModal').classList.remove('open'); }
           else alert('Senha incorreta.');
         } else {
-          const id = 'u_'+Date.now(); users[email] = {id,pass}; localStorage.setItem('nexar_users',JSON.stringify(users)); currentUser = {id,email}; localStorage.setItem('nexar_user',JSON.stringify(currentUser)); alert('Conta criada!'); authModal.classList.remove('open');
+          const id = 'u_'+Date.now(); users[email] = {id,pass}; localStorage.setItem('nexar_users',JSON.stringify(users)); currentUser = {id,email}; localStorage.setItem('nexar_user',JSON.stringify(currentUser)); alert('Conta criada!'); document.getElementById('authModal').classList.remove('open');
         }
       }
       updateOrdersUI();
     });
 
-    // Salvar pedido (quando usuário finalizar compra via site)
-    // Aqui salvamos localmente e, se houver Firebase, também salvamos no Firestore.
+    /***** ORDERS: salvar e buscar *****/
     async function saveOrder(order){
-      // order = {id, userId, items, total, date, paymentMethod}
-      // localStorage store
       let all = JSON.parse(localStorage.getItem('nexar_orders')||'[]');
-      all.push(order); localStorage.setItem('nexar_orders',JSON.stringify(all));
-      if(useFirebase){
-        try{ await db.collection('orders').add(order); } catch(e){ console.warn('Erro salvando no Firestore',e) }
-      }
-    }
-
-    // Quando o usuário clicar em finalizar via WhatsApp, vamos salvar o pedido automaticamente para "Meus Pedidos"
-    document.getElementById('checkoutWhatsApp').addEventListener('click',async function(e){
-      // salvamos o pedido antes de redirecionar
-      if(cart.length===0){ e.preventDefault(); alert('Carrinho vazio.'); return }
-      const userId = currentUser ? currentUser.id : 'guest_'+Date.now();
-      const total = cart.reduce((s,i)=>s + i.price*i.qty,0);
-      const order = { id: 'ord_'+Date.now(), userId, items: cart, total, date: new Date().toISOString(), payment: 'PIX/WhatsApp' };
-      await saveOrder(order);
-      // limpar carrinho e atualizar UI
-      cart = []; saveCart();
-      // (o link do botão já é atualizado por updateCartUI para abrir o WhatsApp)
-      // permitir seguir com o click normal
-    });
-
-    // Meus Pedidos UI
-    function showOrdersSection(){
-      document.getElementById('meusPedidosSection').style.display = 'block';
-      if(!currentUser){ alert('Acesse sua conta para ver seus pedidos.'); authModal.classList.add('open'); return }
-      updateOrdersUI();
-      window.scrollTo({top:document.getElementById('meusPedidosSection').offsetTop-80,behavior:'smooth'});
-    }
-
-    async function fetchOrdersForUser(userId){
-      // retorna orders do localStorage filtradas por userId + (opcionalmente) Firestore
-      let local = JSON.parse(localStorage.getItem('nexar_orders')||'[]');
-      let userOrders = local.filter(o=>o.userId === userId);
+      all.push(order); localStorage.setItem('nexar_orders', JSON.stringify(all));
       if(useFirebase){
         try{
-          // Certifique-se de que a coleção 'orders' exista no Firestore e que as regras de segurança permitam leitura
-          const snapshot = await db.collection('orders').where('userId','==',userId).get();
-          snapshot.forEach(doc=>{ const d = doc.data(); if(!userOrders.find(x=>x.id===d.id)) userOrders.push(d); });
-        }catch(e){ console.warn('Erro lendo pedidos Firestore',e) }
+          await db.collection('orders').add(order);
+        } catch(e){
+          console.warn('Erro salvando no Firestore', e);
+        }
       }
-      return userOrders.sort((a,b)=> new Date(b.date) - new Date(a.date));
+    }
+
+    document.getElementById('checkoutWhatsApp').addEventListener('click', async function(e){
+      if(cart.length===0){ e.preventDefault(); alert('Carrinho vazio.'); return; }
+      const userId = currentUser ? currentUser.id : 'guest_'+Date.now();
+      const total = cart.reduce((s,i)=>s + i.price*i.qty, 0);
+      const order = { id: 'ord_'+Date.now(), userId, items: cart, total, date: new Date().toISOString(), payment: 'PIX/WhatsApp' };
+      await saveOrder(order);
+      // limpar carrinho para UX
+      cart = []; saveCart();
+    });
+
+    async function fetchOrdersForUser(userId){
+      let local = JSON.parse(localStorage.getItem('nexar_orders')||'[]');
+      let userOrders = local.filter(o => o.userId === userId);
+      if(useFirebase){
+        try{
+          const snapshot = await db.collection('orders').where('userId','==',userId).get();
+          snapshot.forEach(doc => { const d = doc.data(); if(!userOrders.find(x=>x.id===d.id)) userOrders.push(d); });
+        } catch(e){ console.warn('Erro lendo pedidos Firestore', e); }
+      }
+      return userOrders.sort((a,b) => new Date(b.date) - new Date(a.date));
     }
 
     async function updateOrdersUI(){
       const area = document.getElementById('ordersArea'); area.innerHTML = '';
-      if(!currentUser){ area.innerHTML = '<p class="muted">Faça login para ver seus pedidos.</p>'; return }
+      if(!currentUser){ area.innerHTML = '<p class="muted">Faça login para ver seus pedidos.</p>'; return; }
       const orders = await fetchOrdersForUser(currentUser.id);
-      if(orders.length===0){ area.innerHTML = '<p class="muted">Nenhum pedido encontrado.</p>'; return }
+      if(orders.length===0){ area.innerHTML = '<p class="muted">Nenhum pedido encontrado.</p>'; return; }
       const list = document.createElement('div'); list.className='orders-list';
       orders.forEach(o=>{
         const card = document.createElement('div'); card.className='order-card';
-        card.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center"><strong>Pedido ${o.id}</strong><small style=\"color:var(--muted)\">${new Date(o.date).toLocaleString()}</small></div>`;
+        card.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center"><strong>Pedido ${o.id}</strong><small style="color:var(--muted)">${new Date(o.date).toLocaleString()}</small></div>`;
         const itemsHtml = o.items.map(it=>`<div style="display:flex;justify-content:space-between;margin-top:8px"><div>${it.qty}x ${it.name}</div><div>${formatBRL(it.price*it.qty)}</div></div>`).join('');
-        card.innerHTML += itemsHtml + `<div style=\"margin-top:10px;display:flex;justify-content:space-between;align-items:center\"><strong>Total</strong><strong>${formatBRL(o.total)}</strong></div>`;
+        card.innerHTML += itemsHtml + `<div style="margin-top:10px;display:flex;justify-content:space-between;align-items:center"><strong>Total</strong><strong>${formatBRL(o.total)}</strong></div>`;
         list.appendChild(card);
       });
       area.appendChild(list);
     }
 
-    /* ===== Utils & Inicialização ===== */
-    function viewDetails(id){const p = PRODUCTS.find(x=>x.id===id);alert(`${p.name}
-Preço: ${formatBRL(p.price)}`)}
-    updateCartUI();
+    function showOrdersSection(){
+      document.getElementById('meusPedidosSection').style.display = 'block';
+      if(!currentUser){ alert('Acesse sua conta para ver seus pedidos.'); document.getElementById('authModal').classList.add('open'); return; }
+      updateOrdersUI();
+      window.scrollTo({ top: document.getElementById('meusPedidosSection').offsetTop - 80, behavior: 'smooth' });
+    }
+
+    /***** VIEW DETAILS (simples) *****/
+    window.viewDetails = function(id){
+      const p = productsCache.find(x=>x.idFire==id || String(x.id)==String(id)) || PRODUCTS_FALLBACK.find(x=>String(x.id)===String(id));
+      if(!p) return alert('Produto não encontrado.');
+      alert(`${p.title || p.name}\nPreço: ${formatBRL(p.price)}\nMarca: ${p.brand || ''}\nArmazenamento: ${p.specs?.storage || p.storage || ''}`);
+    };
+
+    /***** INICIALIZAÇÃO (carrega initial UI) *****/
+    async function init(){
+      await loadCategoriesAndFilters();
+      document.getElementById('filterCategory').value = currentFilters.categoryId || 'all';
+      await fetchProducts({ reset:true });
+      updateCartUI();
+    }
 
     // Expor funções para botões inline
-    window.addToCart = addToCart; window.viewDetails = viewDetails; window.increaseQty = increaseQty; window.decreaseQty = decreaseQty; window.removeFromCart = removeFromCart;
+    window.addToCart = addToCart; window.increaseQty = increaseQty; window.decreaseQty = decreaseQty; window.removeFromCart = removeFromCart;
 
-    // Se o usuário estiver logado (localStorage), atualiza pedidos
+    // Contact form
+    document.getElementById('contactForm').addEventListener('submit', e=>{
+      e.preventDefault(); alert('Mensagem recebida — responderemos em breve via email/WhatsApp.'); e.target.reset();
+    });
+
+    // inicializa
+    init();
+
+    // Carrega pedidos se user já logado (localStorage)
     if(currentUser) updateOrdersUI();
 
-    // Instruções rápidas para o deploy / ativar Firebase:
-    // 1) Crie um projeto no https://console.firebase.google.com
-    // 2) Habilite Authentication -> Email/Password
-    // 3) Habilite Firestore Database (modo de teste ou regras adequadas)
-    // 4) Cole o objeto firebaseConfig na constante 'firebaseConfig' no topo deste arquivo
-    // 5) Recarregue. A autenticação e o armazenamento de pedidos passarão a ser reais e persistentes.
-
-    // Segurança: o fallback localStorage funciona para demonstração e lançamento rápido, mas não é seguro para dados sensíveis.
+    // Nota: se combinar muitos where+orderBy, Firestore pode requerer índices compostos. O console normalmente fornece o link para criar o índice.
   </script>
 </body>
 </html>
