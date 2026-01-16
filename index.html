@@ -1,783 +1,749 @@
-<!doctype html>
-<html lang="pt-BR">
+<!DOCTYPE html>
+<html lang="pt-br">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>NexarStore — Tecnologia Premium</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GARAGE 01 | Estética Automotiva & Funilaria Premium</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;800&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-  <!-- Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;800;900&family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        /* --- VARIÁVEIS E RESET --- */
+        :root {
+            --bg-color: #0a0a0a; /* Preto Quase Puro */
+            --card-bg: #141414; /* Cinza Escuro */
+            --primary-red: #d32f2f; /* Vermelho Metálico Base */
+            --primary-red-hover: #b71c1c;
+            --text-white: #ffffff;
+            --text-gray: #b0b0b0;
+            --border-color: #333;
+            --font-head: 'Exo 2', sans-serif;
+            --font-body: 'Roboto', sans-serif;
+        }
 
-  <style>
-    :root{
-      --bg:#000000;
-      --card:#0b0d0e;
-      --card-2:#0f1113;
-      --verde:#00C47A;
-      --muted:#9aa4b2;
-      --text:#ffffff;
-      --glass: rgba(255,255,255,0.03);
-      --glass-2: rgba(255,255,255,0.025);
-      --radius:12px;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{font-family:Inter,system-ui,Arial;color:var(--text);background:var(--bg);margin:0;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
 
-    /* Top bar */
-    header{background:linear-gradient(90deg,rgba(0,0,0,0.98),rgba(0,0,0,0.92));color:var(--text);padding:12px 18px;position:sticky;top:0;z-index:1200;border-bottom:3px solid var(--verde)}
-    .topbar{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:14px}
-    .logo{font-family:Poppins,Montserrat,Inter;font-weight:900;font-size:26px;letter-spacing:0.6px;color:var(--verde)}
-    .search{flex:1;display:flex;align-items:center;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:8px;border-radius:12px;border:1px solid rgba(255,255,255,0.04)}
-    .search input{flex:1;background:transparent;border:0;color:var(--text);padding:8px;font-size:14px;outline:none}
-    .search button{background:var(--verde);border:0;padding:8px 12px;border-radius:10px;cursor:pointer;font-weight:700}
-    .nav-actions{display:flex;align-items:center;gap:12px}
-    .icon-btn{background:transparent;border:0;color:var(--text);font-size:18px;cursor:pointer;position:relative;padding:8px;border-radius:8px}
-    .icon-btn:hover{background:var(--glass-2)}
-    .badge{position:absolute;top:6px;right:6px;background:#ff4d4d;color:#fff;border-radius:50%;padding:2px 6px;font-size:12px}
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-white);
+            font-family: var(--font-body);
+            line-height: 1.6;
+        }
 
-    /* Main layout */
-    main{max-width:1200px;margin:18px auto;padding:0 18px}
-    .hero{margin:20px 0;padding:12px;border-radius:var(--radius);display:flex;gap:20px;align-items:center;background:linear-gradient(180deg, rgba(0,0,0,0.75), rgba(0,0,0,0.7)); overflow:hidden}
-    .hero-left{flex:1;padding:20px}
-    .hero h1{font-family:Poppins;font-size:34px;margin:0 0 6px;color:var(--verde)}
-    .hero p{color:var(--muted);margin:0 0 12px}
-    .hero .cta{display:inline-block;background:var(--verde);color:#000;padding:12px 18px;border-radius:12px;font-weight:800;text-decoration:none;box-shadow:0 8px 24px rgba(0,0,0,0.6)}
-    .hero-right{width:520px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
-    .hero-right img{width:100%;height:220px;object-fit:cover;border-radius:10px;display:block;box-shadow:0 20px 60px rgba(0,0,0,0.7)}
+        h1, h2, h3, h4 {
+            font-family: var(--font-head);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
-    /* Layout with sidebar filters */
-    .layout{display:grid;grid-template-columns:300px 1fr;gap:18px}
-    @media (max-width:1000px){ .layout{grid-template-columns:1fr} }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
 
-    /* Filters sidebar */
-    .filters{background:var(--card);padding:16px;border-radius:var(--radius);border:1px solid rgba(255,255,255,0.03)}
-    .filters h3{margin:0 0 10px;color:var(--verde);font-weight:800}
-    .filters label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
-    .filters select, .filters input[type="number"]{width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text);margin-bottom:10px}
-    .filters .actions{display:flex;gap:8px}
+        /* --- COMPONENTES GERAIS --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
 
-    /* Grid */
-    .products{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
-    .product{background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);padding:12px;border-radius:12px;box-shadow:0 12px 28px rgba(0,0,0,0.7);border:1px solid rgba(255,255,255,0.03);display:flex;flex-direction:column;transition:transform .15s, box-shadow .2s}
-    .product:hover{transform:translateY(-8px);box-shadow:0 20px 40px rgba(0,0,0,0.75)}
-    .product img{width:100%;height:160px;object-fit:cover;border-radius:10px;background:#111}
-    .product h3{font-size:16px;margin:10px 0 6px;color:#fff}
-    .meta{color:var(--muted);font-size:13px;margin-bottom:6px}
-    .price-row{display:flex;justify-content:space-between;align-items:center;gap:8px}
-    .price{font-weight:900;color:var(--verde)}
-    .actions{margin-top:10px;display:flex;gap:8px}
-    .btn-ghost{flex:1;padding:10px;border-radius:10px;border:1px dashed rgba(255,255,255,0.04);background:transparent;cursor:pointer;color:var(--text)}
-    .btn-primary{flex:1;padding:10px;border-radius:10px;border:0;background:var(--verde);color:#000;cursor:pointer;font-weight:800}
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--primary-red);
+            color: white;
+            font-weight: 700;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+            clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%); /* Efeito de corte esportivo */
+            font-family: var(--font-head);
+        }
 
-    /* Footer */
-    footer{background:#070707;color:var(--text);padding:28px 18px;margin-top:30px;border-top:1px solid rgba(255,255,255,0.03)}
-    .footer-inner{max-width:1200px;margin:0 auto;display:flex;gap:20px;flex-wrap:wrap}
-    .col{flex:1;min-width:200px}
-    .col h4{color:var(--verde);margin-bottom:8px}
-    .muted{color:var(--muted);font-size:14px}
+        .btn:hover {
+            background-color: var(--primary-red-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(211, 47, 47, 0.4);
+        }
 
-    /* Cart sidebar */
-    .cart-sidebar{position:fixed;right:0;top:0;height:100vh;width:0;overflow:hidden;background:var(--card-2);color:var(--text);transition:width .35s ease;z-index:1300;border-left:4px solid var(--verde)}
-    .cart-sidebar.open{width:420px;box-shadow:-8px 0 40px rgba(0,0,0,0.6)}
-    .cart-inner{padding:20px;height:100%;display:flex;flex-direction:column}
-    .cart-list{flex:1;overflow:auto;margin-top:16px}
-    .cart-item{display:flex;gap:12px;align-items:center;padding:8px 0;border-bottom:1px solid rgba(0,0,0,0.12)}
-    .cart-item img{width:64px;height:64px;object-fit:cover;border-radius:8px}
-    .cart-footer{padding-top:12px}
-    .whatsapp-btn{display:block;background:#25d366;color:#fff;padding:12px;border-radius:10px;text-align:center;text-decoration:none;font-weight:800}
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--text-white);
+            clip-path: none;
+            border-radius: 4px;
+        }
 
-    /* Modal */
-    .modal{position:fixed;left:0;top:0;width:100%;height:100%;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);z-index:1400}
-    .modal.open{display:flex}
-    .modal-card{background:var(--card-2);padding:20px;border-radius:12px;max-width:420px;width:100%;color:var(--text)}
+        .btn-outline:hover {
+            background-color: var(--text-white);
+            color: var(--bg-color);
+        }
 
-    /* Orders */
-    .orders-list{display:grid;gap:12px}
-    .order-card{background:#0b0c0d;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)}
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
 
-    /* Responsive tweaks */
-    @media (max-width:720px){
-      .hero{flex-direction:column;padding:16px}
-      .hero-right{width:100%}
-      .cart-sidebar.open{width:100%}
-      .logo{font-size:22px}
-    }
-  </style>
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background-color: var(--primary-red);
+            margin: 10px auto 0;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        /* --- HEADER --- */
+        header {
+            background-color: rgba(10, 10, 10, 0.95);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Estilo para a Imagem da Logo */
+        .logo-img {
+            height: 50px;
+            width: auto;
+            display: block;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover { color: var(--primary-red); }
+
+        /* Menu Mobile Toggle */
+        .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; }
+
+        /* --- HERO SECTION (Fundo Principal) --- */
+        #home {
+            height: 90vh;
+            /* Usando o arquivo local 'fundo-hero.jpg' */
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('fundo-hero.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: #ddd;
+            margin-bottom: 40px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        /* --- CARDS DE SERVIÇOS --- */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            transition: 0.3s;
+            text-align: center;
+        }
+
+        .service-card:hover {
+            border-color: var(--primary-red);
+            transform: translateY(-5px);
+        }
+
+        .service-card i {
+            font-size: 2.5rem;
+            color: var(--primary-red);
+            margin-bottom: 20px;
+        }
+
+        .service-card h3 { margin-bottom: 15px; }
+        .service-card p { color: var(--text-gray); font-size: 0.9rem; }
+
+        /* --- FORMULÁRIOS ESTILIZADOS --- */
+        .form-container {
+            background-color: var(--card-bg);
+            padding: 40px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-red);
+            margin-top: 40px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group { margin-bottom: 20px; }
+        .form-group.full { grid-column: 1 / -1; }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-gray);
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            background-color: #000;
+            border: 1px solid var(--border-color);
+            color: white;
+            border-radius: 4px;
+            font-family: var(--font-body);
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-red);
+        }
+
+        /* Checkbox Customization */
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #000;
+            padding: 8px 15px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+        }
+
+        /* --- HOW IT WORKS --- */
+        .steps-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            text-align: center;
+            gap: 20px;
+        }
+
+        .step-item {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 20px;
+        }
+
+        /* --- GALERIA (MODIFICADO) --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+
+        /* Estilo atualizado para o placeholder de texto */
+        .gallery-item {
+            height: 250px;
+            background-color: #141414;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px dashed #333; /* Borda tracejada estilo "espaço vazio" */
+            color: #666;
+            font-weight: 800;
+            font-family: var(--font-head);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: 0.3s;
+        }
+
+        .gallery-item:hover {
+            border-color: var(--primary-red);
+            color: var(--text-white);
+            background-color: #1a1a1a;
+        }
+
+        /* --- FOOTER & CONTATO --- */
+        footer {
+            background-color: #050505;
+            padding: 60px 0 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-info h4 { color: var(--primary-red); margin-bottom: 20px; }
+        .footer-info p { color: var(--text-gray); margin-bottom: 10px; }
+        .footer-info i { margin-right: 10px; color: var(--primary-red); }
+        .footer-info a:hover { color: var(--primary-red); transition: 0.3s; }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #222;
+            color: #666;
+            font-size: 0.8rem;
+        }
+
+        /* --- BOTÃO FLUTUANTE WHATSAPP --- */
+        .float-whatsapp {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25d366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            z-index: 2000;
+            transition: 0.3s;
+        }
+
+        .float-whatsapp:hover { transform: scale(1.1); background-color: #1ebc57; }
+
+        /* --- MEDIA QUERIES --- */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .menu-toggle { display: block; color: white; }
+            .hero-content h1 { font-size: 2.5rem; }
+            .hero-buttons { flex-direction: column; }
+            .form-grid { grid-template-columns: 1fr; }
+            .logo-img { height: 40px; }
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <div class="topbar">
-      <div class="logo">NexarStore</div>
 
-      <div class="search" role="search" aria-label="Pesquisar produtos">
-        <input id="searchInput" placeholder="Buscar iPhone, notebook, fone..." aria-label="Campo de busca">
-        <button id="searchBtn" title="Buscar">Buscar</button>
-      </div>
-
-      <div class="nav-actions">
-        <button class="icon-btn" id="accountBtn" title="Minha Conta"><i class="fa-regular fa-user"></i></button>
-        <button class="icon-btn" id="ordersBtn" title="Meus Pedidos">Meus Pedidos</button>
-        <button class="icon-btn" id="openCartBtn" aria-label="Abrir carrinho"><i class="fa-solid fa-cart-shopping"></i><span class="badge" id="cartBadge" style="display:none">0</span></button>
-      </div>
-    </div>
-  </header>
-
-  <main>
-    <section class="hero" aria-hidden="false">
-      <div class="hero-left">
-        <h1>Ofertas incríveis em tecnologia</h1>
-        <p>Produtos selecionados, garantia e suporte. Frete rápido e pagamento seguro — 10% OFF no PIX.</p>
-        <a class="cta" href="#produtos">Ver ofertas</a>
-      </div>
-      <div class="hero-right">
-        <!-- banner local (arquivo enviado) -->
-        <img id="heroBanner" src="/mnt/data/ChatGPT Image 25 de nov. de 2025, 02_09_06.png" alt="Banner de tecnologia" />
-      </div>
-    </section>
-
-    <section id="produtos" style="margin-top:6px">
-      <div class="section-title" style="color:var(--verde);font-weight:800;margin:18px 0 8px">Destaques</div>
-
-      <div class="layout" style="margin-bottom:28px">
-        <!-- Filters -->
-        <aside class="filters" id="filtersPanel" aria-label="Filtros de produtos">
-          <h3>Filtros</h3>
-
-          <label>Categoria</label>
-          <select id="filterCategory">
-            <!-- preenchido dinamicamente -->
-          </select>
-
-          <label>Marca</label>
-          <select id="filterBrand"><option value="">Todas</option></select>
-
-          <label>Armazenamento</label>
-          <select id="filterStorage"><option value="">Todos</option></select>
-
-          <label>Cor</label>
-          <select id="filterColor"><option value="">Todas</option></select>
-
-          <label style="margin-top:6px">Faixa de preço (R$)</label>
-          <div style="display:flex;gap:8px">
-            <input id="filterPriceMin" type="number" placeholder="Mín." />
-            <input id="filterPriceMax" type="number" placeholder="Máx." />
-          </div>
-
-          <div class="actions" style="margin-top:10px">
-            <button id="applyFilters" class="btn-primary" style="flex:1">Aplicar</button>
-            <button id="clearFilters" class="btn-ghost" style="flex:1">Limpar</button>
-          </div>
-
-          <div style="margin-top:12px;color:var(--muted);font-size:13px">
-            Dica: combine filtros para resultados melhores. Para busca full-text use Algolia (opcional).
-          </div>
-        </aside>
-
-        <!-- Products grid -->
-        <div>
-          <div id="productsGrid" class="products" aria-live="polite">
-            <!-- cards preenchidos dinamicamente -->
-          </div>
-
-          <div style="margin-top:14px;text-align:center">
-            <button id="loadMoreBtn" class="btn-ghost" style="display:none">Carregar mais</button>
-          </div>
+    <header>
+        <div class="container nav-container">
+            <a href="#home">
+                <img src="logo-garage01.png" alt="GARAGE 01 Logo" class="logo-img">
+            </a>
+            
+            <div class="menu-toggle"><i class="fas fa-bars"></i></div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#estetica">Estética</a></li>
+                <li><a href="#funilaria">Funilaria</a></li>
+                <li><a href="#agendamento">Agendar</a></li>
+                <li><a href="#galeria">Galeria</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
         </div>
-      </div>
-    </section>
+    </header>
 
-    <section style="margin-top:22px">
-      <div class="section-title">Sobre</div>
-      <div style="background:var(--card);padding:18px;border-radius:12px;">
-        <p class="muted">NexarStore é uma loja virtual focada em celulares, notebooks, PCs gamer, periféricos e acessórios. Atendimento via WhatsApp e envio rápido para todo Brasil.</p>
-      </div>
-    </section>
-
-    <section id="contato" style="margin-top:22px">
-      <div style="display:grid;grid-template-columns:1fr 320px;gap:18px">
-        <div style="background:var(--card);padding:18px;border-radius:12px;">
-          <form id="contactForm">
-            <label>Nome <input type="text" name="name" required style="width:100%;padding:8px;margin-top:6px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text)"></label>
-            <label style="display:block;margin-top:10px">E-mail <input type="email" name="email" required style="width:100%;padding:8px;margin-top:6px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text)"></label>
-            <label style="display:block;margin-top:10px">Mensagem <textarea name="msg" required style="width:100%;padding:8px;margin-top:6px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text);min-height:120px"></textarea></label>
-            <div style="margin-top:10px;text-align:right"><button type="submit" style="background:var(--verde);color:#000;padding:10px 14px;border-radius:8px;border:0;">Enviar Mensagem</button></div>
-          </form>
+    <section id="home">
+        <div class="container hero-content">
+            <h1>Estética, Funilaria e Pintura<br><span>Em Alto Padrão</span></h1>
+            <p>Transformamos seu veículo com precisão técnica e acabamento esportivo.</p>
+            <div class="hero-buttons">
+                <a href="#agendamento" class="btn">Agendar Serviço</a>
+                <a href="#estetica" class="btn btn-outline">Ver Serviços</a>
+            </div>
         </div>
-        <div style="background:var(--card);padding:18px;border-radius:12px;">
-          <h4>Atendimento</h4>
-          <p class="muted">Whatsapp: <a href="https://wa.me/5511970420650" target="_blank" style="color:var(--verde)">+55 11 97042-0650</a></p>
-          <p class="muted">Email: nexarstore@gmail.com</p>
-        </div>
-      </div>
     </section>
 
-    <!-- Meus Pedidos -->
-    <section id="meusPedidosSection" style="margin-top:26px;display:none">
-      <div class="section-title">Meus Pedidos</div>
-      <div style="background:var(--card);padding:18px;border-radius:12px;">
-        <div id="ordersArea">
-          <p class="muted">Nenhum pedido encontrado.</p>
+    <section id="processo">
+        <div class="container">
+            <div class="steps-container">
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <h4>Escolha</h4>
+                    <p style="color:#aaa; font-size:0.9rem">Selecione o serviço ideal</p>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <h4>Envie</h4>
+                    <p style="color:#aaa; font-size:0.9rem">Preencha os dados do carro</p>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <h4>Receba</h4>
+                    <p style="color:#aaa; font-size:0.9rem">Orçamento via WhatsApp</p>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">4</div>
+                    <h4>Agende</h4>
+                    <p style="color:#aaa; font-size:0.9rem">Venha para a GARAGE 01</p>
+                </div>
+            </div>
         </div>
-      </div>
     </section>
 
-  </main>
+    <section id="estetica">
+        <div class="container">
+            <h2 class="section-title">Estética Automotiva</h2>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <i class="fas fa-shower"></i>
+                    <h3>Lavagem Premium</h3>
+                    <p>Limpeza detalhada com produtos de pH neutro e acabamento em cera.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-gem"></i>
+                    <h3>Polimento & Vitrificação</h3>
+                    <p>Correção de pintura e proteção cerâmica de longa duração.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-couch"></i>
+                    <h3>Higienização Interna</h3>
+                    <p>Limpeza profunda de bancos, teto e carpete com eliminação de odores.</p>
+                </div>
+            </div>
 
-  <!-- Cart sidebar -->
-  <aside id="cartSidebar" class="cart-sidebar" aria-hidden="true">
-    <div class="cart-inner">
-      <div style="display:flex;justify-content:space-between;align-items:center">
-        <h3>Seu Carrinho</h3>
-        <button id="closeCart" class="icon-btn" style="color:var(--text)"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-      <div class="cart-list" id="cartList">
-        <p class="muted">Carrinho vazio. Adicione produtos.</p>
-      </div>
-      <div class="cart-footer">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><strong>Subtotal</strong><strong id="cartTotal">R$ 0,00</strong></div>
-        <a id="checkoutWhatsApp" class="whatsapp-btn" href="#" target="_blank">Finalizar via WhatsApp</a>
-        <div style="margin-top:8px;text-align:center;color:var(--muted);font-size:13px">10% OFF no PIX</div>
-      </div>
-    </div>
-  </aside>
+            <div class="form-container">
+                <h3><i class="fab fa-whatsapp"></i> Orçamento de Estética</h3>
+                <p style="color:#888; margin-bottom:20px;">Receba o valor personalizado no seu WhatsApp.</p>
+                
+                <form id="formEstetica">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Seu Nome</label>
+                            <input type="text" id="est_nome" required placeholder="Ex: João Silva">
+                        </div>
+                        <div class="form-group">
+                            <label>WhatsApp (com DDD)</label>
+                            <input type="tel" id="est_tel" required placeholder="Ex: 11999999999">
+                        </div>
+                        <div class="form-group">
+                            <label>Veículo (Marca/Modelo/Ano)</label>
+                            <input type="text" id="est_carro" required placeholder="Ex: Honda Civic 2020">
+                        </div>
+                        <div class="form-group">
+                            <label>Tipo de Lavagem Principal</label>
+                            <select id="est_tipo">
+                                <option value="Lavagem Simples">Lavagem Simples</option>
+                                <option value="Lavagem Detalhada">Lavagem Detalhada</option>
+                                <option value="Polimento Comercial">Polimento Comercial</option>
+                                <option value="Vitrificação">Vitrificação</option>
+                                <option value="Estética Completa">Estética Completa</option>
+                            </select>
+                        </div>
+                        <div class="form-group full">
+                            <label>Serviços Extras (Opcional)</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-item"><input type="checkbox" value="Higienização Interna"> Higienização Interna</label>
+                                <label class="checkbox-item"><input type="checkbox" value="Hidratação de Couro"> Hidratação de Couro</label>
+                                <label class="checkbox-item"><input type="checkbox" value="Cristalização de Vidros"> Cristalização de Vidros</label>
+                                <label class="checkbox-item"><input type="checkbox" value="Lavagem de Motor"> Lavagem de Motor</label>
+                            </div>
+                        </div>
+                        <div class="form-group full">
+                            <label>Observações</label>
+                            <textarea id="est_obs" rows="3" placeholder="Algum detalhe específico?"></textarea>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn" style="width:100%">Solicitar Orçamento Agora</button>
+                </form>
+            </div>
+        </div>
+    </section>
 
-  <!-- Auth modal -->
-  <div class="modal" id="authModal" aria-hidden="true">
-    <div class="modal-card">
-      <h3>Entrar / Criar Conta</h3>
-      <form id="authForm">
-        <label>Email <input name="email" type="email" required style="width:100%;padding:8px;margin-top:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text)"></label>
-        <label style="display:block;margin-top:8px">Senha <input name="pass" type="password" required style="width:100%;padding:8px;margin-top:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text)"></label>
-        <div style="margin-top:12px;text-align:right"><button type="submit" style="background:var(--verde);color:#000;padding:8px 12px;border-radius:8px;border:0">Entrar / Criar</button></div>
-        <div style="margin-top:10px;color:var(--muted);font-size:13px">Faça login para salvar e visualizar seus pedidos.</div>
-      </form>
-    </div>
-  </div>
+    <section id="funilaria" style="background-color:#0f0f0f;">
+        <div class="container">
+            <h2 class="section-title">Funilaria & Pintura</h2>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <i class="fas fa-spray-can"></i>
+                    <h3>Pintura Completa</h3>
+                    <p>Cabine de pintura profissional e colorimetria exata.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-car-crash"></i>
+                    <h3>Funilaria Express</h3>
+                    <p>Reparos rápidos de parachoques e pequenos amassados.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-hammer"></i>
+                    <h3>Micro Pintura</h3>
+                    <p>Correção de riscos profundos sem pintar a peça inteira.</p>
+                </div>
+            </div>
 
-  <footer>
-    <div class="footer-inner">
-      <div class="col">
-        <h4>Sobre</h4>
-        <p class="muted">NexarStore — Tecnologia premium com atendimento humano e garantia.</p>
-      </div>
-      <div class="col">
-        <h4>Pagamento</h4>
-        <p class="muted">PIX, Cartão (parcele até 12x), Boleto</p>
-      </div>
-      <div class="col">
-        <h4>Contato</h4>
-        <p class="muted">Whatsapp: +55 11 97042-0650</p>
-        <p class="muted">Email: nexarstore@gmail.com</p>
-      </div>
-    </div>
-  </footer>
+            <div class="form-container">
+                <h3><i class="fas fa-tools"></i> Orçamento de Reparo</h3>
+                
+                <form id="formFunilaria">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Seu Nome</label>
+                            <input type="text" id="fun_nome" required>
+                        </div>
+                        <div class="form-group">
+                            <label>WhatsApp</label>
+                            <input type="tel" id="fun_tel" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Veículo</label>
+                            <input type="text" id="fun_carro" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Peça Afetada</label>
+                            <select id="fun_peca">
+                                <option value="Para-choque Dianteiro">Para-choque Dianteiro</option>
+                                <option value="Para-choque Traseiro">Para-choque Traseiro</option>
+                                <option value="Porta">Porta</option>
+                                <option value="Capô">Capô</option>
+                                <option value="Teto">Teto</option>
+                                <option value="Lateral/Paralama">Lateral/Paralama</option>
+                                <option value="Outros">Outros</option>
+                            </select>
+                        </div>
+                        <div class="form-group full">
+                            <label>Descrição do Dano</label>
+                            <textarea id="fun_desc" rows="3" placeholder="Ex: Batida leve, arranhão profundo, pintura queimada..."></textarea>
+                        </div>
+                        <div class="form-group full" style="border: 1px dashed #333; padding: 15px; text-align: center;">
+                            <label style="cursor: pointer;"><i class="fas fa-camera"></i> Tenho fotos do dano</label>
+                            <small style="display:block; color:#666;">(Você poderá anexar as fotos no WhatsApp após clicar em enviar)</small>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn" style="width:100%">Avaliar Dano</button>
+                </form>
+            </div>
+        </div>
+    </section>
 
-  <!-- Firebase compat SDKs (mantive compat para facilitar) -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-analytics-compat.js"></script>
+    <section id="agendamento">
+        <div class="container">
+            <h2 class="section-title">Agendamento Online</h2>
+            <div class="form-container" style="max-width: 600px; margin: 0 auto; border-left: 4px solid white;">
+                <form id="formAgenda">
+                    <div class="form-group">
+                        <label>Tipo de Serviço</label>
+                        <select id="ag_servico">
+                            <option value="Avaliação Presencial">Avaliação Presencial</option>
+                            <option value="Lavagem Simples">Lavagem Simples</option>
+                            <option value="Lavagem Premium">Lavagem Premium</option>
+                            <option value="Polimento">Polimento</option>
+                        </select>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Data Preferida</label>
+                            <input type="date" id="ag_data" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Período</label>
+                            <select id="ag_periodo">
+                                <option value="Manhã (08h - 12h)">Manhã (08h - 12h)</option>
+                                <option value="Tarde (13h - 18h)">Tarde (13h - 18h)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Seu Nome</label>
+                        <input type="text" id="ag_nome" required>
+                    </div>
+                    <button type="submit" class="btn" style="width:100%; background-color: white; color: black;">Solicitar Agendamento</button>
+                    <p style="text-align:center; font-size:0.8rem; margin-top:10px; color:#666;">*Sujeito à confirmação via WhatsApp</p>
+                </form>
+            </div>
+        </div>
+    </section>
 
-  <script>
-    /***** CONFIGURAÇÃO FIREBASE (mantenha seu objeto firebaseConfig) *****/
-    const firebaseConfig = {
-      apiKey: "AIzaSyBCpwBVdyQeK4V2d3oTAoHXl3WJzS8maKM",
-      authDomain: "nexarstore-810a6.firebaseapp.com",
-      projectId: "nexarstore-810a6",
-      storageBucket: "nexarstore-810a6.firebasestorage.app",
-      messagingSenderId: "592156805210",
-      appId: "1:592156805210:web:9c25585b68516d06ac3063",
-      measurementId: "G-9K37F5QX0N"
-    };
+    <section id="galeria" style="background-color:#0f0f0f;">
+        <div class="container">
+            <h2 class="section-title">Galeria</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">Seu Carro Aqui</div>
+                <div class="gallery-item">Seu Carro Aqui</div>
+                <div class="gallery-item">Seu Carro Aqui</div>
+                <div class="gallery-item">Seu Carro Aqui</div>
+            </div>
+        </div>
+    </section>
 
-    let useFirebase = false;
-    try{
-      firebase.initializeApp(firebaseConfig);
-      window.auth = firebase.auth();
-      window.db = firebase.firestore();
-      // firebase.analytics(); // opcional
-      useFirebase = true;
-      console.log('Firebase inicializado.');
-    } catch(e){
-      console.warn('Firebase não inicializado:', e);
-      useFirebase = false;
-    }
+    <footer id="contato">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-info">
+                    <img src="logo-garage01.png" alt="GARAGE 01 Logo" class="logo-img" style="height: 40px;">
+                    <p style="margin-top:20px;">Especialistas em transformar seu carro. Padrão premium de qualidade e atendimento.</p>
+                </div>
+                <div class="footer-info">
+                    <h4>Contato</h4>
+                    <p><i class="fab fa-whatsapp"></i> (11) 97042-0650</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Rua das Oficinas, 123 - Centro</p>
+                    <p><i class="fas fa-clock"></i> Seg - Sex: 08h às 18h</p>
+                </div>
+                <div class="footer-info">
+                    <h4>Redes Sociais</h4>
+                    <p><a href="https://instagram.com/g4rage_01" target="_blank"><i class="fab fa-instagram"></i> @g4rage_01</a></p>
+                    <p><a href="#"><i class="fab fa-facebook"></i> Garage 01</a></p>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2024 GARAGE 01 - Todos os direitos reservados.
+            </div>
+        </div>
+    </footer>
 
-    /***** FALLBACK (dados locais de demo) *****/
-    // Ampliei a lista para cobrir múltiplos ramos de tecnologia.
-    const PRODUCTS_FALLBACK = [
-      // Celulares
-      {id:101, name:'iPhone 16 Pro Max 256GB', price:11999.90, image:'https://via.placeholder.com/600x400?text=iPhone+16+Pro+Max', brand:'Apple', storage:'256GB', color:'Titanium', categoryId:'smartphones'},
-      {id:102, name:'Samsung Galaxy S25 Ultra 512GB', price:8999.90, image:'https://via.placeholder.com/600x400?text=Samsung+S25+Ultra', brand:'Samsung', storage:'512GB', color:'Preto', categoryId:'smartphones'},
-      {id:103, name:'Xiaomi 14 Pro 256GB', price:3999.90, image:'https://via.placeholder.com/600x400?text=Xiaomi+14+Pro', brand:'Xiaomi', storage:'256GB', color:'Branco', categoryId:'smartphones'},
+    <a href="https://wa.me/5511970420650" class="float-whatsapp" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
-      // Notebooks
-      {id:201, name:'MacBook Pro M4 16"', price:19999.00, image:'https://via.placeholder.com/600x400?text=MacBook+Pro+M4', brand:'Apple', storage:'1TB', color:'Cinza', categoryId:'notebooks'},
-      {id:202, name:'Dell XPS 15', price:12999.90, image:'https://via.placeholder.com/600x400?text=Dell+XPS+15', brand:'Dell', storage:'512GB', color:'Prata', categoryId:'notebooks'},
-      {id:203, name:'Asus Vivobook 14', price:3599.90, image:'https://via.placeholder.com/600x400?text=Asus+Vivobook', brand:'Asus', storage:'256GB', color:'Preto', categoryId:'notebooks'},
+    <script>
+        const whatsappNumber = "5511970420650"; 
 
-      // PCs Gamer
-      {id:301, name:'Gaming PC RTX 4090 - Full', price:27999.90, image:'https://via.placeholder.com/600x400?text=PC+Gamer+RTX+4090', brand:'Custom', storage:'2TB', color:'Preto', categoryId:'pc-gamer'},
-      {id:302, name:'Setup Gamer Ryzen 7 + RTX 4080', price:18999.90, image:'https://via.placeholder.com/600x400?text=Ryzen+7+%2B+RTX+4080', brand:'Custom', storage:'1TB', color:'Preto', categoryId:'pc-gamer'},
+        // Função Genérica de Envio
+        function sendToWhatsapp(text) {
+            const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`;
+            window.open(url, '_blank');
+        }
 
-      // PCs Escritório
-      {id:401, name:'PC Office i5 16GB SSD 512GB', price:3499.90, image:'https://via.placeholder.com/600x400?text=PC+Office+i5', brand:'HP', storage:'512GB', color:'Preto', categoryId:'pc-escritorio'},
-      {id:402, name:'All-in-One Intel Core i3', price:2999.90, image:'https://via.placeholder.com/600x400?text=All-in-One+i3', brand:'Lenovo', storage:'256GB', color:'Branco', categoryId:'pc-escritorio'},
-
-      // Tablets
-      {id:501, name:'iPad Air 5 256GB', price:4899.90, image:'https://via.placeholder.com/600x400?text=iPad+Air', brand:'Apple', storage:'256GB', color:'Prata', categoryId:'tablets'},
-      {id:502, name:'Samsung Galaxy Tab S9', price:3999.90, image:'https://via.placeholder.com/600x400?text=Galaxy+Tab+S9', brand:'Samsung', storage:'256GB', color:'Preto', categoryId:'tablets'},
-
-      // Monitores
-      {id:601, name:'Monitor 27" 144Hz IPS', price:1299.90, image:'https://via.placeholder.com/600x400?text=Monitor+27', brand:'AOC', storage:'—', color:'Preto', categoryId:'monitores'},
-      {id:602, name:'Monitor Ultrawide 34" 144Hz', price:3999.90, image:'https://via.placeholder.com/600x400?text=Ultrawide+34', brand:'LG', storage:'—', color:'Preto', categoryId:'monitores'},
-
-      // Periféricos
-      {id:701, name:'Teclado Mecânico RGB', price:399.90, image:'https://via.placeholder.com/600x400?text=Teclado+Mecânico', brand:'HyperX', storage:'—', color:'Preto', categoryId:'perifericos'},
-      {id:702, name:'Mouse Gamer 16000 DPI', price:249.90, image:'https://via.placeholder.com/600x400?text=Mouse+Gamer', brand:'Logitech', storage:'—', color:'Preto', categoryId:'perifericos'},
-      {id:703, name:'Headset Gamer Wireless', price:699.90, image:'https://via.placeholder.com/600x400?text=Headset+Gamer', brand:'Razer', storage:'—', color:'Preto', categoryId:'perifericos'},
-
-      // Acessórios
-      {id:801, name:'Power Bank 20000mAh', price:199.90, image:'https://via.placeholder.com/600x400?text=PowerBank', brand:'Baseus', storage:'—', color:'Preto', categoryId:'acessorios'},
-      {id:802, name:'Carregador USB-C 65W', price:129.90, image:'https://via.placeholder.com/600x400?text=Carregador+65W', brand:'Anker', storage:'—', color:'Branco', categoryId:'acessorios'},
-      {id:803, name:'Cabo USB-C 1.5m', price:49.90, image:'https://via.placeholder.com/600x400?text=Cabo+USB-C', brand:'Baseus', storage:'—', color:'Preto', categoryId:'acessorios'},
-
-      // Smartwatches
-      {id:901, name:'Apple Watch Series 10 45mm', price:3599.90, image:'https://via.placeholder.com/600x400?text=Apple+Watch+10', brand:'Apple', storage:'—', color:'Preto', categoryId:'smartwatches'},
-      {id:902, name:'Galaxy Watch 7 44mm', price:1899.90, image:'https://via.placeholder.com/600x400?text=Galaxy+Watch+7', brand:'Samsung', storage:'—', color:'Preto', categoryId:'smartwatches'}
-    ];
-
-    /***** ESTADO LOCAL *****/
-    const grid = document.getElementById('productsGrid');
-    const cartList = document.getElementById('cartList');
-    const cartTotalEl = document.getElementById('cartTotal');
-    const cartBadge = document.getElementById('cartBadge');
-
-    let productsCache = []; // cache local dos produtos carregados
-    let lastSnapshot = null; // para paginação
-    let currentFilters = { categoryId: 'all', brand: '', storage: '', color: '', priceMin: null, priceMax: null };
-    let cart = JSON.parse(localStorage.getItem('nexar_cart')||'[]');
-    let currentUser = JSON.parse(localStorage.getItem('nexar_user')||'null');
-
-    /***** HELPERS *****/
-    function formatBRL(v){ return 'R$ '+Number(v||0).toFixed(2).replace('.',',') }
-    function el(tag, attrs={}, html=''){ const e=document.createElement(tag); Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v)); if(html) e.innerHTML=html; return e }
-
-    /***** RENDER FUNCS *****/
-    function renderProducts(list){
-      grid.innerHTML='';
-      if(!list || list.length===0){
-        grid.innerHTML = '<div style="grid-column:1/-1;padding:18px;background:var(--card);border-radius:12px"><p class="muted">Nenhum produto encontrado.</p></div>';
-        return;
-      }
-      list.forEach(p=>{
-        const idKey = p.idFire || p.id;
-        const card = document.createElement('div'); card.className='product';
-        card.innerHTML = `
-          <img src="${(p.images && p.images[0]) || p.image || 'https://via.placeholder.com/400x300?text=Produto'}" alt="${p.title || p.name}">
-          <h3>${p.title || p.name}</h3>
-          <div class="meta">${p.brand || ''} • ${p.specs?.storage || p.storage || ''}</div>
-          <div class="price-row"><div class="price">${formatBRL(p.price)}</div></div>
-          <div class="actions">
-            <button class="btn-ghost" data-id="${idKey}" onclick="viewDetails('${idKey}')">Detalhes</button>
-            <button class="btn-primary" data-id="${idKey}" onclick="addToCart('${idKey}')">Adicionar</button>
-          </div>`;
-        grid.appendChild(card);
-      });
-    }
-
-    /***** CATEGORIES + FILTERS LOADING *****/
-    const DEFAULT_CATEGORIES = [
-      {id:'all', name:'Todos'},
-      {id:'smartphones', name:'Smartphones'},
-      {id:'notebooks', name:'Notebooks'},
-      {id:'pc-gamer', name:'PC Gamer'},
-      {id:'pc-escritorio', name:'PC Escritório'},
-      {id:'tablets', name:'Tablets'},
-      {id:'monitores', name:'Monitores'},
-      {id:'perifericos', name:'Periféricos'},
-      {id:'acessorios', name:'Acessórios'},
-      {id:'smartwatches', name:'Smartwatches'}
-    ];
-
-    async function loadCategoriesAndFilters(){
-      const catSelect = document.getElementById('filterCategory');
-      catSelect.innerHTML = ''; // limpar
-
-      if(useFirebase){
-        try{
-          const catsSnap = await db.collection('categories').orderBy('order','asc').get();
-          if(!catsSnap.empty){
-            catsSnap.forEach(doc => {
-              const d = doc.data();
-              const opt = document.createElement('option'); opt.value = doc.id; opt.textContent = d.name || doc.id;
-              catSelect.appendChild(opt);
+        // 1. Lógica Formulário Estética
+        document.getElementById('formEstetica').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const nome = document.getElementById('est_nome').value;
+            const carro = document.getElementById('est_carro').value;
+            const tipo = document.getElementById('est_tipo').value;
+            const obs = document.getElementById('est_obs').value;
+            
+            let extras = [];
+            document.querySelectorAll('#formEstetica input[type="checkbox"]:checked').forEach(cb => {
+                extras.push(cb.value);
             });
-          } else {
-            DEFAULT_CATEGORIES.forEach(c=> { const o=document.createElement('option'); o.value=c.id; o.textContent=c.name; catSelect.appendChild(o) });
-          }
-        } catch(e){
-          console.warn('Erro carregando categories:', e);
-          DEFAULT_CATEGORIES.forEach(c=> { const o=document.createElement('option'); o.value=c.id; o.textContent=c.name; catSelect.appendChild(o) });
-        }
-      } else {
-        DEFAULT_CATEGORIES.forEach(c=> { const o=document.createElement('option'); o.value=c.id; o.textContent=c.name; catSelect.appendChild(o) });
-      }
 
-      catSelect.addEventListener('change', async e => {
-        currentFilters.categoryId = e.target.value;
-        await loadFilterOptionsForCategory(currentFilters.categoryId);
-      });
+            const msg = `*NOVO PEDIDO DE ORÇAMENTO (Estética)*\n\n` +
+                        `👤 *Cliente:* ${nome}\n` +
+                        `🚗 *Veículo:* ${carro}\n` +
+                        `✨ *Serviço:* ${tipo}\n` +
+                        `➕ *Extras:* ${extras.length > 0 ? extras.join(', ') : 'Nenhum'}\n` +
+                        `📝 *Obs:* ${obs}`;
+            
+            sendToWhatsapp(msg);
+        });
 
-      // carregar inicialmente
-      const initialCat = catSelect.value || 'all';
-      currentFilters.categoryId = initialCat;
-      await loadFilterOptionsForCategory(initialCat);
-    }
+        // 2. Lógica Formulário Funilaria
+        document.getElementById('formFunilaria').addEventListener('submit', function(e) {
+            e.preventDefault();
 
-    async function loadFilterOptionsForCategory(categoryId){
-      const brandSel = document.getElementById('filterBrand');
-      const storageSel = document.getElementById('filterStorage');
-      const colorSel = document.getElementById('filterColor');
-      brandSel.innerHTML = '<option value="">Todas</option>';
-      storageSel.innerHTML = '<option value="">Todos</option>';
-      colorSel.innerHTML = '<option value="">Todas</option>';
+            const nome = document.getElementById('fun_nome').value;
+            const carro = document.getElementById('fun_carro').value;
+            const peca = document.getElementById('fun_peca').value;
+            const desc = document.getElementById('fun_desc').value;
 
-      if(useFirebase){
-        try{
-          const snap = await db.collection('filters').doc(categoryId).get();
-          if(snap.exists){
-            const data = snap.data();
-            (data.brand || []).forEach(b => { const o=document.createElement('option'); o.value=b; o.textContent=b; brandSel.appendChild(o) });
-            (data.storage || []).forEach(s => { const o=document.createElement('option'); o.value=s; o.textContent=s; storageSel.appendChild(o) });
-            (data.color || []).forEach(c => { const o=document.createElement('option'); o.value=c; o.textContent=c; colorSel.appendChild(o) });
-            return;
-          }
-        } catch(e){
-          console.warn('Erro loading filters doc:', e);
-        }
-      }
+            const msg = `*AVALIAÇÃO DE FUNILARIA*\n\n` +
+                        `👤 *Cliente:* ${nome}\n` +
+                        `🚗 *Veículo:* ${carro}\n` +
+                        `🛠️ *Peça:* ${peca}\n` +
+                        `⚠️ *Dano:* ${desc}\n\n` +
+                        `📷 *Nota:* Estou enviando fotos do dano a seguir...`;
 
-      // fallback hard-coded
-      const fallback = {
-        'smartphones': { brand:['Apple','Samsung','Xiaomi'], storage:['128GB','256GB','512GB','1TB'], color:['Preto','Branco','Azul','Titanium'] },
-        'notebooks': { brand:['Apple','Dell','Asus','Lenovo'], storage:['256GB','512GB','1TB'], color:['Preto','Prata'] },
-        'pc-gamer': { brand:['Custom','Corsair','Dell'], storage:['1TB','2TB'], color:['Preto'] },
-        'pc-escritorio': { brand:['HP','Lenovo','Dell'], storage:['256GB','512GB'], color:['Preto','Branco'] },
-        'tablets': { brand:['Apple','Samsung'], storage:['128GB','256GB'], color:['Preto','Prata'] },
-        'monitores': { brand:['LG','AOC','Samsung'], storage:[], color:['Preto'] },
-        'perifericos': { brand:['Logitech','HyperX','Razer'], storage:[], color:['Preto'] },
-        'acessorios': { brand:['Anker','Baseus'], storage:[], color:['Preto','Branco'] },
-        'smartwatches': { brand:['Apple','Samsung'], storage:[], color:['Preto','Prata'] },
-        'all': { brand:['Apple','Samsung','Xiaomi','Dell','Asus','Lenovo','HP','Logitech','Razer','Anker','Baseus','Custom'], storage:['128GB','256GB','512GB','1TB','2TB'], color:['Preto','Branco','Prata','Azul','Titanium'] }
-      };
-      const opts = fallback[categoryId] || fallback['all'];
-      opts.brand.forEach(b => { const o=document.createElement('option'); o.value=b; o.textContent=b; brandSel.appendChild(o) });
-      opts.storage.forEach(s => { const o=document.createElement('option'); o.value=s; o.textContent=s; storageSel.appendChild(o) });
-      opts.color.forEach(c => { const o=document.createElement('option'); o.value=c; o.textContent=c; colorSel.appendChild(o) });
-    }
+            alert("Ao abrir o WhatsApp, por favor anexe as fotos do dano para agilizar o orçamento.");
+            sendToWhatsapp(msg);
+        });
 
-    /***** FETCH PRODUCTS (Firestore or fallback) *****/
-    async function fetchProducts({ reset=true, pageSize=12 } = {}){
-      if(!useFirebase){
-        // fallback: filtrar array local
-        let list = PRODUCTS_FALLBACK.slice();
-        if(currentFilters.categoryId && currentFilters.categoryId !== 'all') {
-          list = list.filter(p => p.categoryId === currentFilters.categoryId);
-        }
-        if(currentFilters.brand) list = list.filter(p => (p.brand||'').toLowerCase() === currentFilters.brand.toLowerCase());
-        if(currentFilters.storage) list = list.filter(p => (p.storage||'').toLowerCase() === currentFilters.storage.toLowerCase());
-        if(currentFilters.color) list = list.filter(p => (p.color||'').toLowerCase() === currentFilters.color.toLowerCase());
-        if(currentFilters.priceMin != null) list = list.filter(p => Number(p.price) >= Number(currentFilters.priceMin));
-        if(currentFilters.priceMax != null) list = list.filter(p => Number(p.price) <= Number(currentFilters.priceMax));
-        productsCache = list;
-        renderProducts(productsCache);
-        document.getElementById('loadMoreBtn').style.display = 'none';
-        return;
-      }
+        // 3. Lógica Agendamento
+        document.getElementById('formAgenda').addEventListener('submit', function(e) {
+            e.preventDefault();
 
-      try{
-        let q = db.collection('products');
-        if(currentFilters.categoryId && currentFilters.categoryId !== 'all') q = q.where('categoryId','==', currentFilters.categoryId);
+            const servico = document.getElementById('ag_servico').value;
+            const data = document.getElementById('ag_data').value;
+            const periodo = document.getElementById('ag_periodo').value;
+            const nome = document.getElementById('ag_nome').value;
 
-        // Adiciona filtros simples
-        if(currentFilters.brand) q = q.where('filters.brand','==', currentFilters.brand);
-        if(currentFilters.storage) q = q.where('filters.storage','==', currentFilters.storage);
-        if(currentFilters.color) q = q.where('filters.color','==', currentFilters.color);
-        if(currentFilters.priceMin != null) q = q.where('price','>=', Number(currentFilters.priceMin));
-        if(currentFilters.priceMax != null) q = q.where('price','<=', Number(currentFilters.priceMax));
+            const dataObj = new Date(data);
+            const dataFormatada = dataObj.toLocaleDateString('pt-BR');
 
-        // ordene por createdAt desc ou por price se preferir
-        try { q = q.orderBy('createdAt','desc'); } catch(e) { /* ignore if no createdAt index */ }
+            const msg = `*SOLICITAÇÃO DE AGENDAMENTO*\n\n` +
+                        `👤 *Cliente:* ${nome}\n` +
+                        `📅 *Data:* ${dataFormatada}\n` +
+                        `⏰ *Período:* ${periodo}\n` +
+                        `🔧 *Serviço:* ${servico}`;
+            
+            sendToWhatsapp(msg);
+        });
 
-        if(!reset && lastSnapshot){
-          q = q.startAfter(lastSnapshot);
-        }
-
-        q = q.limit(pageSize);
-        const snap = await q.get();
-        const docs = snap.docs.map(d => ({ idFire:d.id, ...d.data() }));
-        if(reset){
-          productsCache = docs;
-        } else {
-          productsCache = productsCache.concat(docs);
-        }
-        renderProducts(productsCache);
-        lastSnapshot = snap.docs[snap.docs.length - 1] || null;
-        document.getElementById('loadMoreBtn').style.display = lastSnapshot ? 'inline-block' : 'none';
-      } catch(e){
-        console.error('Erro fetchProducts:', e);
-      }
-    }
-
-    /***** SEARCH (enter key and button) *****/
-    document.getElementById('searchBtn').addEventListener('click', doSearch);
-    document.getElementById('searchInput').addEventListener('keydown', function(e){ if(e.key === 'Enter') { e.preventDefault(); doSearch(); } });
-
-    async function doSearch(){
-      const q = document.getElementById('searchInput').value.trim();
-      if(!q){ await fetchProducts({reset:true}); return; }
-
-      if(!useFirebase){
-        const list = PRODUCTS_FALLBACK.filter(p => (p.name||p.title||'').toLowerCase().includes(q.toLowerCase()));
-        renderProducts(list);
-        return;
-      }
-
-      try{
-        // tentativa simples por título (prefix)
-        const q1 = db.collection('products').orderBy('title').startAt(q).endAt(q+'\uf8ff').limit(50);
-        const snap = await q1.get();
-        const docs = snap.docs.map(d => ({ idFire:d.id, ...d.data() }));
-        renderProducts(docs);
-      } catch(e){
-        console.warn('Erro pesquisa:', e);
-      }
-    }
-
-    /***** FILTERS UI HANDLERS *****/
-    document.getElementById('applyFilters').addEventListener('click', async ()=>{
-      currentFilters.brand = document.getElementById('filterBrand').value || '';
-      currentFilters.storage = document.getElementById('filterStorage').value || '';
-      currentFilters.color = document.getElementById('filterColor').value || '';
-      const pmin = document.getElementById('filterPriceMin').value;
-      const pmax = document.getElementById('filterPriceMax').value;
-      currentFilters.priceMin = pmin ? Number(pmin) : null;
-      currentFilters.priceMax = pmax ? Number(pmax) : null;
-
-      lastSnapshot = null;
-      await fetchProducts({ reset:true });
-      window.scrollTo({ top: document.getElementById('produtos').offsetTop - 80, behavior: 'smooth' });
-    });
-
-    document.getElementById('clearFilters').addEventListener('click', async ()=>{
-      document.getElementById('filterBrand').value = ''; document.getElementById('filterStorage').value = ''; document.getElementById('filterColor').value = '';
-      document.getElementById('filterPriceMin').value = ''; document.getElementById('filterPriceMax').value = '';
-      currentFilters.brand=''; currentFilters.storage=''; currentFilters.color=''; currentFilters.priceMin=null; currentFilters.priceMax=null;
-      lastSnapshot = null;
-      await fetchProducts({ reset:true });
-    });
-
-    document.getElementById('loadMoreBtn').addEventListener('click', ()=>fetchProducts({ reset:false }));
-
-    /***** CART (adapted) *****/
-    function saveCart(){ localStorage.setItem('nexar_cart', JSON.stringify(cart)); updateCartUI(); }
-    async function addToCart(id){
-      let p = productsCache.find(x => x.idFire == id || String(x.id) == String(id)) || PRODUCTS_FALLBACK.find(x=>String(x.id)===String(id));
-      if(!p && useFirebase){
-        try{
-          const doc = await db.collection('products').doc(id).get();
-          if(doc.exists) p = { idFire: doc.id, ...doc.data() };
-        } catch(e){ console.warn('Erro carregar produto:', e) }
-      }
-      if(!p) return alert('Produto não encontrado.');
-
-      const pid = p.idFire || p.id;
-      const found = cart.find(i => i.id === pid);
-      if(found) found.qty++;
-      else cart.push({ id: pid, name: p.title || p.name, price: Number(p.price || 0), image: (p.images?.[0] || p.image), qty:1 });
-      saveCart();
-      openCart();
-    }
-    function removeFromCart(id){ cart = cart.filter(i=>i.id!==id); saveCart(); }
-    function increaseQty(id){ const it = cart.find(i=>i.id===id); if(it){ it.qty++; saveCart(); } }
-    function decreaseQty(id){ const it = cart.find(i=>i.id===id); if(it){ it.qty--; if(it.qty<=0) removeFromCart(id); else saveCart(); } }
-
-    function updateCartUI(){
-      cartList.innerHTML='';
-      if(cart.length===0){ cartList.innerHTML='<p class="muted">Carrinho vazio. Adicione produtos.</p>'; cartBadge.style.display='none'; cartTotalEl.textContent='R$ 0,00'; return }
-      let total=0;
-      cart.forEach(item=>{
-        total += item.price * item.qty;
-        const div = document.createElement('div'); div.className='cart-item';
-        div.innerHTML = `<img src="${item.image||'https://via.placeholder.com/120'}" alt="${item.name}">
-          <div style="flex:1">
-            <div style="font-weight:700">${item.name}</div>
-            <div style="color:var(--muted);font-size:13px">Qtde: ${item.qty} — ${formatBRL(item.price*item.qty)}</div>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:6px">
-            <button class="btn-ghost" style="padding:6px 8px" onclick="decreaseQty('${item.id}')">-</button>
-            <button class="btn-ghost" style="padding:6px 8px" onclick="increaseQty('${item.id}')">+</button>
-            <button class="btn-ghost" style="padding:6px 8px;color:#ff4d4d" onclick="removeFromCart('${item.id}')">Remover</button>
-          </div>`;
-        cartList.appendChild(div);
-      });
-      const totalItems = cart.reduce((s,i)=>s+i.qty,0);
-      cartBadge.textContent = totalItems; cartBadge.style.display='inline-block';
-      cartTotalEl.textContent = formatBRL(total);
-
-      // atualizar link de checkout via WhatsApp
-      const phone = '5511970420650';
-      const pixDiscountTotal = (total*0.9).toFixed(2);
-      let msg = `Olá, quero finalizar meu pedido na NexarStore.%0A`;
-      cart.forEach(it=>{ msg += `${it.qty}x ${it.name} - R$ ${(it.price*it.qty).toFixed(2)}%0A`; });
-      msg += `%0ATotal: R$ ${total.toFixed(2)}%0APIX (10% OFF): R$ ${pixDiscountTotal}%0A`;
-      const url = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
-      document.getElementById('checkoutWhatsApp').setAttribute('href', url);
-    }
-
-    /***** CART SIDEBAR handlers *****/
-    const cartSidebar = document.getElementById('cartSidebar');
-    document.getElementById('openCartBtn').addEventListener('click', openCart);
-    document.getElementById('closeCart').addEventListener('click', closeCart);
-    function openCart(){ cartSidebar.classList.add('open'); cartSidebar.setAttribute('aria-hidden','false'); updateCartUI(); document.body.style.overflow='hidden'; }
-    function closeCart(){ cartSidebar.classList.remove('open'); cartSidebar.setAttribute('aria-hidden','true'); document.body.style.overflow='auto'; }
-
-    /***** AUTH (login/create) *****/
-    document.getElementById('accountBtn').addEventListener('click', ()=>{ document.getElementById('authModal').classList.add('open'); document.getElementById('authModal').setAttribute('aria-hidden','false'); });
-    document.getElementById('ordersBtn').addEventListener('click', showOrdersSection);
-
-    if(useFirebase){
-      auth.onAuthStateChanged(u => {
-        if(u){ currentUser = { id: u.uid, email: u.email }; localStorage.setItem('nexar_user', JSON.stringify(currentUser)); }
-        else { currentUser = null; localStorage.removeItem('nexar_user'); }
-        updateOrdersUI();
-      });
-    }
-
-    document.getElementById('authForm').addEventListener('submit', async e=>{
-      e.preventDefault();
-      const email = e.target.email.value.trim();
-      const pass = e.target.pass.value;
-      if(!email || !pass) return alert('Preencha email e senha.');
-      if(useFirebase){
-        try{
-          await auth.signInWithEmailAndPassword(email, pass);
-          alert('Login efetuado!');
-          document.getElementById('authModal').classList.remove('open');
-        } catch(err){
-          // tentar criar conta
-          try{
-            await auth.createUserWithEmailAndPassword(email, pass);
-            alert('Conta criada e logado!');
-            document.getElementById('authModal').classList.remove('open');
-          } catch(e){
-            alert('Erro no login/registro: ' + (e.message || e));
-          }
-        }
-      } else {
-        // fallback localStorage
-        let users = JSON.parse(localStorage.getItem('nexar_users')||'{}');
-        if(users[email]){
-          if(users[email].pass === pass){ currentUser = {id:users[email].id,email}; localStorage.setItem('nexar_user',JSON.stringify(currentUser)); alert('Login efetuado!'); document.getElementById('authModal').classList.remove('open'); }
-          else alert('Senha incorreta.');
-        } else {
-          const id = 'u_'+Date.now(); users[email] = {id,pass}; localStorage.setItem('nexar_users',JSON.stringify(users)); currentUser = {id,email}; localStorage.setItem('nexar_user',JSON.stringify(currentUser)); alert('Conta criada!'); document.getElementById('authModal').classList.remove('open');
-        }
-      }
-      updateOrdersUI();
-    });
-
-    /***** ORDERS: salvar e buscar *****/
-    async function saveOrder(order){
-      let all = JSON.parse(localStorage.getItem('nexar_orders')||'[]');
-      all.push(order); localStorage.setItem('nexar_orders', JSON.stringify(all));
-      if(useFirebase){
-        try{
-          await db.collection('orders').add(order);
-        } catch(e){
-          console.warn('Erro salvando no Firestore', e);
-        }
-      }
-    }
-
-    document.getElementById('checkoutWhatsApp').addEventListener('click', async function(e){
-      if(cart.length===0){ e.preventDefault(); alert('Carrinho vazio.'); return; }
-      const userId = currentUser ? currentUser.id : 'guest_'+Date.now();
-      const total = cart.reduce((s,i)=>s + i.price*i.qty, 0);
-      const order = { id: 'ord_'+Date.now(), userId, items: cart, total, date: new Date().toISOString(), payment: 'PIX/WhatsApp' };
-      await saveOrder(order);
-      // limpar carrinho para UX
-      cart = []; saveCart();
-    });
-
-    async function fetchOrdersForUser(userId){
-      let local = JSON.parse(localStorage.getItem('nexar_orders')||'[]');
-      let userOrders = local.filter(o => o.userId === userId);
-      if(useFirebase){
-        try{
-          const snapshot = await db.collection('orders').where('userId','==',userId).get();
-          snapshot.forEach(doc => { const d = doc.data(); if(!userOrders.find(x=>x.id===d.id)) userOrders.push(d); });
-        } catch(e){ console.warn('Erro lendo pedidos Firestore', e); }
-      }
-      return userOrders.sort((a,b) => new Date(b.date) - new Date(a.date));
-    }
-
-    async function updateOrdersUI(){
-      const area = document.getElementById('ordersArea'); area.innerHTML = '';
-      if(!currentUser){ area.innerHTML = '<p class="muted">Faça login para ver seus pedidos.</p>'; return; }
-      const orders = await fetchOrdersForUser(currentUser.id);
-      if(orders.length===0){ area.innerHTML = '<p class="muted">Nenhum pedido encontrado.</p>'; return; }
-      const list = document.createElement('div'); list.className='orders-list';
-      orders.forEach(o=>{
-        const card = document.createElement('div'); card.className='order-card';
-        card.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center"><strong>Pedido ${o.id}</strong><small style="color:var(--muted)">${new Date(o.date).toLocaleString()}</small></div>`;
-        const itemsHtml = o.items.map(it=>`<div style="display:flex;justify-content:space-between;margin-top:8px"><div>${it.qty}x ${it.name}</div><div>${formatBRL(it.price*it.qty)}</div></div>`).join('');
-        card.innerHTML += itemsHtml + `<div style="margin-top:10px;display:flex;justify-content:space-between;align-items:center"><strong>Total</strong><strong>${formatBRL(o.total)}</strong></div>`;
-        list.appendChild(card);
-      });
-      area.appendChild(list);
-    }
-
-    function showOrdersSection(){
-      document.getElementById('meusPedidosSection').style.display = 'block';
-      if(!currentUser){ alert('Acesse sua conta para ver seus pedidos.'); document.getElementById('authModal').classList.add('open'); return; }
-      updateOrdersUI();
-      window.scrollTo({ top: document.getElementById('meusPedidosSection').offsetTop - 80, behavior: 'smooth' });
-    }
-
-    /***** VIEW DETAILS (simples) *****/
-    window.viewDetails = function(id){
-      const p = productsCache.find(x=>x.idFire==id || String(x.id)==String(id)) || PRODUCTS_FALLBACK.find(x=>String(x.id)===String(id));
-      if(!p) return alert('Produto não encontrado.');
-      alert(`${p.title || p.name}\nPreço: ${formatBRL(p.price)}\nMarca: ${p.brand || ''}\nArmazenamento: ${p.specs?.storage || p.storage || ''}`);
-    };
-
-    /***** INICIALIZAÇÃO (carrega initial UI) *****/
-    async function init(){
-      await loadCategoriesAndFilters();
-      document.getElementById('filterCategory').value = currentFilters.categoryId || 'all';
-      await fetchProducts({ reset:true });
-      updateCartUI();
-    }
-
-    // Expor funções para botões inline
-    window.addToCart = addToCart; window.increaseQty = increaseQty; window.decreaseQty = decreaseQty; window.removeFromCart = removeFromCart;
-
-    // Contact form
-    document.getElementById('contactForm').addEventListener('submit', e=>{
-      e.preventDefault(); alert('Mensagem recebida — responderemos em breve via email/WhatsApp.'); e.target.reset();
-    });
-
-    // inicializa
-    init();
-
-    // Carrega pedidos se user já logado (localStorage)
-    if(currentUser) updateOrdersUI();
-
-    // Nota: se combinar muitos where+orderBy, Firestore pode requerer índices compostos. O console normalmente fornece o link para criar o índice.
-  </script>
+        // Menu Mobile
+        document.querySelector('.menu-toggle').addEventListener('click', () => {
+            const nav = document.querySelector('.nav-links');
+            nav.style.display = (nav.style.display === 'flex') ? 'none' : 'flex';
+            if(nav.style.display === 'flex') {
+                nav.style.flexDirection = 'column';
+                nav.style.position = 'absolute';
+                nav.style.top = '70px';
+                nav.style.left = '0';
+                nav.style.width = '100%';
+                nav.style.background = 'rgba(10,10,10,0.95)';
+                nav.style.padding = '20px';
+            }
+        });
+    </script>
 </body>
 </html>
